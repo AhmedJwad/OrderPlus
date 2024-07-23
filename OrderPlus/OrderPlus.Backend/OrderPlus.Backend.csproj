@@ -20,9 +20,4 @@
     <ProjectReference Include="..\OrderPlus.Shared\OrderPlus.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UnitsOfWork\Implementations\" />
-    <Folder Include="UnitsOfWork\Interfaces\" />
-  </ItemGroup>
-
 </Project>

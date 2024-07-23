@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using OrderPlus.Backend.Data;
 using OrderPlus.Backend.Repositories.Implementations;
 using OrderPlus.Backend.Repositories.Interfaces;
+using OrderPlus.Backend.UnitsOfWork.Implementations;
+using OrderPlus.Backend.UnitsOfWork.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 
 

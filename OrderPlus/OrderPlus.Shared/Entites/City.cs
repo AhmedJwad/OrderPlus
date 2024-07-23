@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 
 namespace OrderPlus.Shared.Entites
 {
-    public class Country
+    public class City
     {
         public int Id { get; set; }
 
-        [Display(Name = "Country")]
+        [Display(Name = "City")]
         [MaxLength(100, ErrorMessage = "The field {0} cannot be more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is required.")]
         public string Name { get; set; } = null!;
 
-        public ICollection<State>? States{ get; set; }
+        public int StateId { get; set; }
 
-        [Display(Name = "Departments/States")]
-        public int StatesNumber=> States ==null || States.Count==0? 0 : States.Count;
-
+        public State? State { get; set; }
     }
 }
