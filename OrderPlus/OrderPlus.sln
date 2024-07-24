@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderPlus.Shared", "OrderPl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderPlus.test", "OrderPlus.test\OrderPlus.test.csproj", "{BD74AA44-0B4A-43BB-B65A-D5987807F3E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderPlus.Fronend", "OrderPlus.Fronend\OrderPlus.Fronend.csproj", "{4D184906-2B98-4850-91C1-8E641F9B45CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderPlus.Fronend", "OrderPlus.Fronend\OrderPlus.Fronend.csproj", "{4D184906-2B98-4850-91C1-8E641F9B45CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
