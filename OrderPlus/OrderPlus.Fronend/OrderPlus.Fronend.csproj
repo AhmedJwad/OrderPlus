@@ -12,4 +12,8 @@
     <PackageReference Include="MudBlazor" Version="7.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OrderPlus.Shared\OrderPlus.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
