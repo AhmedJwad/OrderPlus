@@ -1,5 +1,21 @@
-﻿<h3>CountriesIndex</h3>
+﻿@page "/countries"
 
-@code {
-
+@if(loading)
+{
+    ﻿<MudCard>
+        <div class="overlay d-flex flex-column justify-content-center align-items-center p-3">
+            <MudProgressCircular Indeterminate="true" Color="Color.Primary" Class="mb-3" />
+            <MudText Typo="Typo.h5">Please wait...</MudText>
+        </div>
+    </MudCard>
 }
+<MudTable Items="@countries"
+          @ref="table"
+          ServerData="@(new Func<TableState, Task<TableData<Country>>>(LoadListAsync))"
+          Dense=true
+          Hover=true
+          Striped=true
+          FixedHeader=true
+          FixedFooter=true>
+
+          </MudTable>
