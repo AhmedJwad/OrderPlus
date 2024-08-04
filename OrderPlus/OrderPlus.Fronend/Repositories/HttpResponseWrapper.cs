@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿
+
+using System.Net;
 
 namespace OrderPlus.Fronend.Repositories
 {
@@ -6,26 +8,26 @@ namespace OrderPlus.Fronend.Repositories
     {
         public HttpResponseWrapper(T? response, bool error, HttpResponseMessage httpResponseMessage)
         {
-            response = Response;
-            error = Error;
-           httpResponseMessage = HttpResponseMessage;
-               
-               
+            Response = response;
+            Error = error;
+            HttpResponseMessage = httpResponseMessage;
         }
+
         public T? Response { get; }
         public bool Error { get; }
         public HttpResponseMessage HttpResponseMessage { get; }
 
-        public async Task<string> GetErrorMessageAsync()
+        public async Task<string?> GetErrorMessageAsync()
         {
             if (!Error)
             {
                 return null;
             }
-            var statusCode=HttpResponseMessage.StatusCode;
-            if(statusCode==HttpStatusCode.NotFound)
+
+            var statusCode = HttpResponseMessage.StatusCode;
+            if (statusCode == HttpStatusCode.NotFound)
             {
-                return "Recourse not found.";
+                return "Resource not found.";
             }
             if (statusCode == HttpStatusCode.BadRequest)
             {
@@ -39,8 +41,10 @@ namespace OrderPlus.Fronend.Repositories
             {
                 return "You do not have permission to perform this operation.";
             }
+
             return "An unexpected error has occurred.";
         }
+
 
     }
 

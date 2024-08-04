@@ -1,28 +1,25 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
-<MudPopoverProvider />
+<MudThemeProvider IsDarkMode="_darkMode" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar>
+    <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        My Application
+        <MudLink Href="/" Typo="Typo.h5" Class="ml-3" Color="Color.Inherit">Venda Pues</MudLink>
+        <MudSpacer />
+        <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Inherit" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight">
+            @* <AuthLinks /> *@
+        </MudMenu>
+        <MudIconButton Icon="@_icon" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DarkModeToggle())" />
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen">
-        <NavMenu/>
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        @Body
+        <MudContainer MaxWidth="MaxWidth.Large" Style="margin-top: 3rem">
+            @Body
+        </MudContainer>
     </MudMainContent>
-</MudLayout>
-
-@code {
-    bool _drawerOpen = true;
-
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
-}
+</MudLayout>                                    
