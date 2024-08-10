@@ -71,16 +71,18 @@ namespace OrderPlus.Backend.Repositories.Implementations
         public override async Task<ActionResponse<int>> GetRecordsNumberAsync(PaginationDTO pagination)
         {
             var queryable = _context.Countries.AsQueryable();
-            if(!string.IsNullOrWhiteSpace(pagination.Filter))
+
+            if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
                 queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
-            int recordsNumber=await queryable.CountAsync();
+
+            int recordsNumber = await queryable.CountAsync();
 
             return new ActionResponse<int>
             {
                 WasSuccess = true,
-                Result = recordsNumber,
+                Result = recordsNumber
             };
         }
 

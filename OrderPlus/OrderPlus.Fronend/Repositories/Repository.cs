@@ -9,6 +9,7 @@ namespace OrderPlus.Fronend.Repositories
        
         private JsonSerializerOptions _jsonDefaultOptions=new JsonSerializerOptions
         {
+            
             PropertyNameCaseInsensitive = true,
         };
         private readonly HttpClient _httpClient;
@@ -83,7 +84,7 @@ namespace OrderPlus.Fronend.Repositories
 
         private async Task<T> UnserializeAnswerAsync<T>(HttpResponseMessage httpResponseMessage)
         {
-            var response =await httpResponseMessage.Content.ReadAsStringAsync();
+            var response =await httpResponseMessage.Content.ReadAsStringAsync();           
             return JsonSerializer.Deserialize<T>(response, _jsonDefaultOptions)!;
         }
     }

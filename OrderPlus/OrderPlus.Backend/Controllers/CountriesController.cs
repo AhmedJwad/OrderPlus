@@ -24,7 +24,7 @@ namespace OrderPlus.Backend.Controllers
             var response=await _countriesUnitOfWork.GetRecordsNumberAsync(pagination);
             if(response.WasSuccess)
             {
-                return Ok(response);
+                return Ok(response.Result);
             }
             return BadRequest();
         }

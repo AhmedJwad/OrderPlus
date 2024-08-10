@@ -1,6 +1,6 @@
-﻿@page "/CountryCreate"
-<h3>CountryCreate</h3>
-
-@code {
-
-}
+﻿
+<MudDialog>
+    <DialogContent>
+      <FormWithName @ref="countryForm" Label="Country:" model="country" OnValidSubmit="CreateAsync" ReturnAction="Return"/>
+    </DialogContent>
+</MudDialog>

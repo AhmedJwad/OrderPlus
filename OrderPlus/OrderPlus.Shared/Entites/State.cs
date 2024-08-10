@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderPlus.Shared.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrderPlus.Shared.Entites
 {
-    public class State
+    public class State : IEntityWithName
     {
         public int Id { get; set; }
 

@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
 using MudBlazor;
 using OrderPlus.Fronend.Repositories;
 using OrderPlus.Fronend.Shared;
 using OrderPlus.Shared.Entites;
-using System.Data;
 using System.Net;
+
 
 namespace OrderPlus.Fronend.Pages.Countries
 {
@@ -38,7 +37,7 @@ namespace OrderPlus.Fronend.Pages.Countries
         private async Task<bool> LoadTotalRecords()
         {
             loading = true;
-            var url = $"{baseUrl}/recordsNumber?Page=1&RecordsNumber={int.MaxValue}";
+            var url = $"api/Countries/recordsNumber?Page=1&RecordsNumber={int.MaxValue}";
             if (!string.IsNullOrWhiteSpace(Filter))
             {
                 url += $"&filter={Filter}";

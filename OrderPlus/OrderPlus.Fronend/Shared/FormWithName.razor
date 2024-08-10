@@ -1,0 +1,18 @@
+﻿
+@typeparam TModel where TModel :IEntityWithName
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"/>
+
+<EditForm EditContext="EditContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator/>
+    <MudTextField Label="@Label"
+                  @bind-Value="@model.Name"
+                  For="@(() => model.Name)"
+                  Class="mb-4" />
+    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Check" Color="Color.Primary" ButtonType="ButtonType.Submit">
+        Save
+    </MudButton>
+    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Info" OnClick="ReturnAction">
+        Return
+    </MudButton>
+   
+</EditForm>
