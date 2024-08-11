@@ -1,0 +1,12 @@
+﻿﻿@if (city is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <FormWithName @ref="cityForm" Label="city:" model="city" OnValidSubmit="SaveAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

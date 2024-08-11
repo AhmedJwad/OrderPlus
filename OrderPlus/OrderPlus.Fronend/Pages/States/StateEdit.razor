@@ -1,0 +1,14 @@
+﻿@page "/states/edit/{StateId:int}"
+
+@if (state is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <FormWithName @ref="stateForm" Label="State/Department:" model="state" OnValidSubmit="SaveAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}
