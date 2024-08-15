@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OrderPlus.Shared.Entites;
 
 namespace OrderPlus.Backend.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext>options):base(options)
         {
-                
+            Database.SetCommandTimeout(600);
         }
         public DbSet<Country>Countries { get; set; }
         public DbSet<State> States { get; set; }
