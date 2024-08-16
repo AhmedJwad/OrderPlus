@@ -67,7 +67,7 @@ namespace OrderPlus.Backend.Data
                 }
 
                 var fileBytes = File.ReadAllBytes(filePath);
-                var imagePath = await _fileStorage.SaveFileAsync(fileBytes, "jpg", "users");
+                var imagePath = await _fileStorage.SaveFileAsync(fileBytes, ".jpg", "users");
 
                 user = new User
                 {
