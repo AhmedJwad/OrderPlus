@@ -8,6 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="images\users\AhmedAlmershady.jpg" />
+    <Content Include="images\users\Angelina.jpg" />
+    <Content Include="images\users\bob.jpg" />
+    <Content Include="images\users\Brad.jpg" />
+    <Content Include="images\users\celia.jpg" />
+    <Content Include="images\users\fredy.jpg" />
+    <Content Include="images\users\hector.jpg" />
+    <Content Include="images\users\LedysBedoya.jpg" />
+    <Content Include="images\users\liv.jpg" />
+    <Content Include="images\users\otep.jpg" />
+    <Content Include="images\users\otep.png" />
+    <Content Include="images\users\ozzy.jpg" />
+    <Content Include="images\users\ozzy.png" />
+    <Content Include="images\users\selena.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="4.7.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />

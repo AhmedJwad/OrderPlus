@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OrderPlus.Shared.Entites
 {
@@ -48,5 +49,6 @@ namespace OrderPlus.Shared.Entites
 
         [Display(Name = "User")]
         public string FullName => $"{FirstName} {LastName}";
+      
     }
 }

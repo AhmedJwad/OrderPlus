@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using OrderPlus.Fronend.Pages.Auth;
+using OrderPlus.Shared.Entites;
 using IDialogService = MudBlazor.IDialogService;
 
 namespace OrderPlus.Fronend.Shared
@@ -10,6 +11,7 @@ namespace OrderPlus.Fronend.Shared
     public partial class AuthLinks
     {
         private string? photoUser;
+       
         [Inject] private NavigationManager navigationManager { get; set; } = null!;
         [Inject] private IDialogService dialogService { get; set; } = null!;
         [CascadingParameter] private Task<AuthenticationState> AuthenticationStateTask { get; set; } = null!;
@@ -23,7 +25,8 @@ namespace OrderPlus.Fronend.Shared
             if(photoClaim is not null)
             {
 
-                photoUser = photoClaim.Value;
+               photoUser = $"https://localhost:7106/{photoClaim.Value}"; ;
+                
             }
 
         }

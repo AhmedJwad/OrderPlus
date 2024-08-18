@@ -59,11 +59,11 @@ namespace OrderPlus.Backend.Data
                 string filePath;
                 if (_runtimeInformationWrapper.IsOSPlatform(OSPlatform.Windows))
                 {
-                    filePath = $"{Environment.CurrentDirectory}\\wwwroot\\images\\users\\{image}";
+                    filePath = $"{Environment.CurrentDirectory}\\images\\users\\{image}";
                 }
                 else
                 {
-                    filePath = $"{Environment.CurrentDirectory}/wwwroot/images/users/{image}";
+                    filePath = $"{Environment.CurrentDirectory}/images/users/{image}";
                 }
 
                 var fileBytes = File.ReadAllBytes(filePath);
