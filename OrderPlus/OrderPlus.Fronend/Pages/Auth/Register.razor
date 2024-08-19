@@ -19,10 +19,21 @@ else
                     <MudTextField Label="Last Name"
                                   @bind-Value="userDTO.LastName"
                                   For="@(() => userDTO.LastName)" />
-                    <MudTextField Label="Country Code"
+                   @*  <MudTextField Label="Country Code"
                                   @bind-Value="userDTO.CountryCode"
                                   For="@(() => userDTO.CountryCode)"
-                                  InputType="InputType.Telephone" />
+                                  InputType="InputType.Telephone" /> *@
+                    <MudAutocomplete T="string"
+                                     Label="Country Code"
+                                     Placeholder="--Select a Country Code--"
+                                     SearchFunc="SearchCountryCodes"
+                                     Value="userDTO.CountryCode"
+                                     ValueChanged="@(code => userDTO.CountryCode = code)"
+                                     ToStringFunc="@(code => code)">
+                        <ItemTemplate Context="itemContext">
+                            @itemContext - @countryCodes[itemContext]
+                        </ItemTemplate>
+                    </MudAutocomplete>
                     <MudTextField Label="Phone"
                                   @bind-Value="userDTO.PhoneNumber"
                                   For="@(() => userDTO.PhoneNumber)"

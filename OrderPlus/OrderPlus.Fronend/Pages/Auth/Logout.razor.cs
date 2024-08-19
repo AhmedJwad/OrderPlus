@@ -13,6 +13,7 @@ namespace OrderPlus.Fronend.Pages.Auth
         private async Task LogoutActionAsync()
         {
             await LoginService.LogoutAsync();
+            NavigationManager.NavigateTo("/");
             CancelAction();
         }
 

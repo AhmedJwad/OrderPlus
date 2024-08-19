@@ -4,15 +4,15 @@
     </div>
     <br />
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">Inicio</MudNavLink>
-    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">Acerca de</MudNavLink>
-
-   
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">Acerca de</MudNavLink> 
+    <AuthorizeView Roles="Admin">
+        <Authorized>
             <MudNavLink Href="/banks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBalance">Bancos</MudNavLink>
             <MudNavLink Href="/categories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Category">Categorias</MudNavLink>
             <MudNavLink Href="/purchases" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ShoppingBag">Compras</MudNavLink>
             <MudNavLink Href="/inventories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Rule">Inventarios</MudNavLink>
             <MudNavLink Href="/news" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Newspaper">Noticias & Promociones</MudNavLink>
-             <MudNavLink Href="/countries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">Country</MudNavLink>
+            <MudNavLink Href="/countries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">Country</MudNavLink>
             <MudNavLink Href="/orders" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Pedidos</MudNavLink>
             <MudNavLink Href="/products" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Inventory2">Productos</MudNavLink>
             <MudNavLink Href="/suppliers" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.LocalShipping">Proveedores</MudNavLink>
@@ -22,5 +22,12 @@
                 <MudNavLink Href="/report_InventoryValuation" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Valorización del inventario</MudNavLink>
                 <MudNavLink Href="/report_GrossProfit" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Utilidad bruta</MudNavLink>
             </MudNavGroup>
+        </Authorized>
+     </AuthorizeView>
+    <AuthorizeView Roles="User">
+        <Authorized>
+            <MudNavLink Href="/orders" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Ver Mis Pedidos</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
        
 </MudNavMenu>
