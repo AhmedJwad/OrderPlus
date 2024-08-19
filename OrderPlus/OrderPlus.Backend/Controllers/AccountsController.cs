@@ -73,7 +73,7 @@ namespace OrderPlus.Backend.Controllers
                 return NotFound();
             }
             var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(user);
-            var tokenLink = Url.Action("ResetPasswordAsync", "accounts",
+            var tokenLink = Url.Action("ResetPassword", "accounts",
             new
             {
                 userid = user.Id,
