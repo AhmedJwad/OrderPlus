@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
+using OrderPlus.Backend.Data;
 using OrderPlus.Backend.Helpers;
 using OrderPlus.Backend.UnitsOfWork.Interfaces;
 using OrderPlus.Shared.DTOs;
@@ -21,14 +24,16 @@ namespace OrderPlus.Backend.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
+        private readonly DataContext _context;
         private readonly IUsersUnitOfWork _usersUnitOfWork;
         private readonly IConfiguration _configuration;
         private readonly IFileStorage _fileStorage;
         private readonly IMailHelper _mailHelper;
 
-        public AccountsController(IUsersUnitOfWork usersUnitOfWork, IConfiguration configuration,
+        public AccountsController(DataContext context, IUsersUnitOfWork usersUnitOfWork, IConfiguration configuration,
            IFileStorage fileStorage, IMailHelper mailHelper)
         {
+           _context = context;
             _usersUnitOfWork = usersUnitOfWork;
             _configuration = configuration;
             _fileStorage = fileStorage;
@@ -210,8 +215,9 @@ namespace OrderPlus.Backend.Controllers
             var result = await _usersUnitOfWork.LoginAsync(model);
             if (result.Succeeded)
             {
-                var user = await _usersUnitOfWork.GetUserAsync(model.Email);
-                return Ok(BuildToken(user));
+                var user = await _usersUnitOfWork.GetUserAsync(model.Email)
+                    ?? await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == model.Email); ;
+                return Ok(BuildToken(user!));
             }
 
             if (result.IsLockedOut)
@@ -233,12 +239,12 @@ namespace OrderPlus.Backend.Controllers
             {
                 new(ClaimTypes.Name, user.Email!),
                 new Claim(ClaimTypes.Role, user.UserType.ToString()),
-                new Claim(ClaimTypes.MobilePhone, user.CountryCode + user.PhoneNumber),                
+                new Claim(ClaimTypes.MobilePhone, user.PhoneNumber!),                
                 new("FirstName", user.FirstName),
                 new("LastName", user.LastName),
                 new("Address", user.Address),
                 new("Photo", user.Photo ?? string.Empty),
-                new("CityId", user.CityId.ToString())
+                new("CityId", user.CityId.ToString()),              
 
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwtKey"]!));

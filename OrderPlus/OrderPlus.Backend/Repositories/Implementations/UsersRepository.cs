@@ -151,7 +151,14 @@ namespace OrderPlus.Backend.Repositories.Implementations
 
         public async Task<SignInResult> LoginAsync(LoginDTO model)
         {
-            return await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, true);
+            var user = await _userManager.FindByEmailAsync(model.Email)
+               ?? await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == model.Email);
+
+            if (user == null)
+            {
+                return SignInResult.Failed;
+            }
+            return await _signInManager.PasswordSignInAsync(user.UserName!, model.Password, false, true);
         }
 
         public async Task LogoutAsync()

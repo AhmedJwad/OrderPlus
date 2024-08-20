@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OrderPlus.Shared.Entites
+{
+    public class Bank
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Bank")]
+        [MaxLength(100, ErrorMessage = "Field {0} cannot be longer than {1} characters.")]
+        [Required(ErrorMessage = "Field {0} is required.")]
+        public string Name { get; set; } = null!;
+
+        public ICollection<OrderPayment>? OrderPayments { get; set; }
+    }
+}

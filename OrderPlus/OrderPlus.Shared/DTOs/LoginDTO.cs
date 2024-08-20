@@ -10,7 +10,7 @@ namespace OrderPlus.Shared.DTOs
     public class LoginDTO
     {
         [Required(ErrorMessage = "Field {0} is required.")]
-        [EmailAddress(ErrorMessage = "You must enter a valid email.")]
+        //[EmailAddress(ErrorMessage = "You must enter a valid email.")]
         public string Email { get; set; } = null!;
 
         [DataType(DataType.Password)]
