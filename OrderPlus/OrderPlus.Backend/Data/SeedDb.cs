@@ -31,7 +31,10 @@ namespace OrderPlus.Backend.Data
             await CheckCountriesAsync();
             await CheckRolesAsync();            
             await CheckUsersAsync();
+            await CheckCategoriesAsync();
         }
+
+       
 
         private async Task CheckUsersAsync()
         {
@@ -109,12 +112,14 @@ namespace OrderPlus.Backend.Data
 
         private async Task CheckCountriesAsync()
         {
-            _context.Countries.Add(new Country
+            if (!_context.Countries.Any())
             {
-                Name = "Iraq",
-                States =
-                   [
-                       new State()
+                _context.Countries.Add(new Country
+                {
+                    Name = "Iraq",
+                    States =
+                  [
+                      new State()
                         {
                             Name = "Baghdad",
                             Cities = [
@@ -269,13 +274,13 @@ namespace OrderPlus.Backend.Data
                             }
                         },
                     ]
-            });
-            _context.Countries.Add(new Country
-            {
-                Name = "Oman",
-                States =
-                [
-                    new State()
+                });
+                _context.Countries.Add(new Country
+                {
+                    Name = "Oman",
+                    States =
+                    [
+                        new State()
                         {
                             Name = "Ad Dakhiliyah",
                            Cities = [
@@ -298,7 +303,31 @@ namespace OrderPlus.Backend.Data
                             ]
                         },
                     ]
-            });
+                });
+                await _context.SaveChangesAsync();
+            }
+              
+        }
+
+        private async Task CheckCategoriesAsync()
+        {
+            if(!_context.Categories.Any())
+            {
+                _context.Categories.Add(new Category { Name = "Apple" });
+                _context.Categories.Add(new Category { Name = "Cars" });
+                _context.Categories.Add(new Category { Name = "Beauty" });
+                _context.Categories.Add(new Category { Name = "Footwear" });
+                _context.Categories.Add(new Category { Name = "Food" });
+                _context.Categories.Add(new Category { Name = "Cosmetics" });
+                _context.Categories.Add(new Category { Name = "Sports" });
+                _context.Categories.Add(new Category { Name = "Gaming" });
+                _context.Categories.Add(new Category { Name = "Toys" });
+                _context.Categories.Add(new Category { Name = "Pets" });
+                _context.Categories.Add(new Category { Name = "Nutrition" });
+                _context.Categories.Add(new Category { Name = "Clothing" });
+                _context.Categories.Add(new Category { Name = "Technology" });
+            }
+            await _context.SaveChangesAsync();
         }
 
     }
