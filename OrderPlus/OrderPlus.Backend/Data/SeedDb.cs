@@ -32,10 +32,88 @@ namespace OrderPlus.Backend.Data
             await CheckRolesAsync();            
             await CheckUsersAsync();
             await CheckCategoriesAsync();
+            await CheckProductsAsync();
         }
 
-       
+        private async Task CheckProductsAsync()
+        {
+           if(!_context.Products.Any())
+            {
+                await AddProductAsync("Adidas Barracuda", 270000M, ["Shoes", "Sports"], ["adidas_barracuda.jpg"], 230000M, 0.3F);
+                await AddProductAsync("Adidas Superstar", 250000M, ["Shoes", "Sports"], ["Adidas_superstar.jpg"], 200000M, 0.3F);
+                await AddProductAsync("Avocado", 5000M, ["Food"], ["Aguacate1.jpg", "Aguacate2.jpg", "Aguacate3.jpg"], 4000M, 0.3F);
+                await AddProductAsync("AirPods", 1300000M, ["Technology", "Apple"], ["airpos.jpg", "airpos2.jpg"], 1000000M, 0.3F);
+                await AddProductAsync("Akai APC40 MKII", 2650000M, ["Technology"], ["Akai1.jpg", "Akai2.jpg", "Akai3.jpg"], 2150000M, 0.3F);
+                await AddProductAsync("Apple Watch Ultra", 4500000M, ["Apple", "Technology"], ["AppleWatchUltra1.jpg", "AppleWatchUltra2.jpg"], 4000000M, 0.3F);
+                await AddProductAsync("Bose Headphones", 870000M, ["Technology"], ["audifonos_bose.jpg"], 800000M, 0.3F);
+                await AddProductAsync("Ribble Bicycle", 12000000M, ["Sports"], ["bicicleta_ribble.jpg"], 10000000M, 0.3F);
+                await AddProductAsync("Plaid Shirt", 56000M, ["Clothing"], ["camisa_cuadros.jpg"], 50000M, 0.3F);
+                await AddProductAsync("Bicycle Helmet", 820000M, ["Sports"], ["casco_bicicleta.jpg", "casco.jpg"], 750000M, 0.3F);
+                await AddProductAsync("Sports Glasses", 160000M, ["Sports"], ["Gafas1.jpg", "Gafas2.jpg", "Gafas3.jpg"], 130000M, 0.3F);
+                await AddProductAsync("Triple Meat Burger", 25500M, ["Food"], ["Hamburguesa1.jpg", "Hamburguesa2.jpg", "Hamburguesa3.jpg"], 16500M, 0.3F);
+                await AddProductAsync("iPad", 2300000M, ["Technology", "Apple"], ["ipad.jpg"], 200000M, 0.3F);
+                await AddProductAsync("iPhone 13", 5200000M, ["Technology", "Apple"], ["iphone13.jpg", "iphone13b.jpg", "iphone13c.jpg", "iphone13d.jpg"], 4900000M, 0.3F);          
+                await AddProductAsync("MacBook Pro", 12100000M, ["Technology", "Apple"], ["mac_book_pro.jpg"], 11500000M, 0.3F);
+                await AddProductAsync("Dumbbells", 370000M, ["Sports"], ["mancuernas.jpg"], 300000M, 0.3F);
+                await AddProductAsync("Face Mask", 26000M, ["Beauty"], ["mascarilla_cara.jpg"], 20000M, 0.3F);
+                await AddProductAsync("New Balance 530", 180000M, ["Shoes", "Sports"], ["newbalance530.jpg"], 140000M, 0.3F);
+                await AddProductAsync("New Balance 565", 179000M, ["Shoes", "Sports"], ["newbalance565.jpg"], 155000M, 0.3F);
+                await AddProductAsync("Nike Air", 233000M, ["Shoes", "Sports"], ["nike_air.jpg"], 200000M, 0.3F);
+                await AddProductAsync("Nike Zoom", 249900M, ["Shoes", "Sports"], ["nike_zoom.jpg"], 200000M, 0.3F);
+                await AddProductAsync("Adidas Women's Sweatshirt", 134000M, ["Clothing", "Sports"], ["buso_adidas.jpg"], 100000M, 0.3F);
+                await AddProductAsync("Boost Original Supplement", 15600M, ["Nutrition"], ["Boost_Original.jpg"], 150000M, 0.3F);
+                await AddProductAsync("Whey Protein", 252000M, ["Nutrition"], ["whey_protein.jpg"], 200000M, 0.3F);
+                await AddProductAsync("Pet Harness", 25000M, ["Pets"], ["arnes_mascota.jpg"], 20000M, 0.3F);
+                await AddProductAsync("Pet Bed", 99000M, ["Pets"], ["cama_mascota.jpg"], 78000M, 0.3F);
+                await AddProductAsync("Gamer Keyboard", 67000M, ["Gamer", "Technology"], ["teclado_gamer.jpg"], 53000M, 0.3F);
+                await AddProductAsync("Luxury Ring 17", 1600000M, ["Cars"], ["Ring1.jpg", "Ring2.jpg"], 1350000M, 0.3F);
+                await AddProductAsync("Gamer Chair", 980000M, ["Gamer", "Technology"], ["silla_gamer.jpg"], 715000M, 0.3F);
+                await AddProductAsync("Gamer Mouse", 132000M, ["Gamer", "Technology"], ["mouse_gamer.jpg"], 99900M, 0.3F);
 
+                await _context.SaveChangesAsync();
+            }
+        }
+        private async Task AddProductAsync(string name, decimal price, List<string> categories, List<string> images, decimal cost, float desiredProfit)
+        {
+            Product prodcut = new()
+            {
+                Description = name,
+                Name = name,
+                Price = price,
+                Cost = cost,
+                DesiredProfit = desiredProfit,
+                ProductCategories = new List<ProductCategory>(),
+                ProductImages = new List<ProductImage>(),
+            };
+
+            foreach (var categoryName in categories)
+            {
+                var category = await _context.Categories.FirstOrDefaultAsync(c => c.Name == categoryName);
+                if (category != null)
+                {
+                    prodcut.ProductCategories.Add(new ProductCategory { Category = category });
+                }
+            }
+
+            foreach (string? image in images)
+            {
+                string filePath;
+                if (_runtimeInformationWrapper.IsOSPlatform(OSPlatform.Windows))
+                {
+                    filePath = $"{Environment.CurrentDirectory}\\Images\\products\\{image}";
+                }
+                else
+                {
+                    filePath = $"{Environment.CurrentDirectory}/Images/products/{image}";
+                }
+
+                var fileBytes = File.ReadAllBytes(filePath);
+                var imagePath = await _fileStorage.SaveFileAsync(fileBytes, ".jpg", "products");
+                prodcut.ProductImages.Add(new ProductImage { Image = imagePath });
+            }
+
+            _context.Products.Add(prodcut);
+        }
         private async Task CheckUsersAsync()
         {
             await CheckUserAsync( "Ahmed", "Almershady", "Ahmed@yopmail.com","+964", "322 311 4620", "babil 40 strret hilla", "AhmedAlmershady.jpg", UserType.Admin);

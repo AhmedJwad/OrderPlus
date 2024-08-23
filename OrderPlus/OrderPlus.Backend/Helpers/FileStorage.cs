@@ -11,7 +11,12 @@ namespace OrderPlus.Backend.Helpers
         }
         public async Task  RemoveFileAsync(string path, string nombreContenedor)
         {
-            throw new NotImplementedException();
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), path);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
 
         public async Task<string> SaveFileAsync(byte[] content, string extention, string containerName)
