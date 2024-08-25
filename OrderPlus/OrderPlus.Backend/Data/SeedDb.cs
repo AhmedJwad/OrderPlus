@@ -33,6 +33,24 @@ namespace OrderPlus.Backend.Data
             await CheckUsersAsync();
             await CheckCategoriesAsync();
             await CheckProductsAsync();
+            await  CheckBanksAsync();
+        }
+
+        private async Task CheckBanksAsync()
+        {
+            if (!_context.Banks.Any()) 
+            {
+                _context.Banks.Add(new Bank { Name= "al rafidain bank" });
+                _context.Banks.Add(new Bank { Name = "al rasheed bank" });
+                _context.Banks.Add(new Bank { Name = "ZainCash bank" });
+                _context.Banks.Add(new Bank { Name = "Industrial Bank of Iraq" });
+                _context.Banks.Add(new Bank { Name = "Agricultural Cooperative Bank of Iraq" });
+                _context.Banks.Add(new Bank { Name = "Real Estate Bank of Iraq" });
+                _context.Banks.Add(new Bank { Name = "Bank of Iraq" });
+                _context.Banks.Add(new Bank { Name = "Trade Bank of Iraq" });
+                await _context.SaveChangesAsync();
+            }
+        
         }
 
         private async Task CheckProductsAsync()

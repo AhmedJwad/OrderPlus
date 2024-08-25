@@ -73,6 +73,12 @@ builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddScoped<ICategoriesUnitOfWork, CategoriesUnitOfWork>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<IProductsUnitOfWork, ProductsUnitOfWork>();
+builder.Services.AddScoped<ITemporalOrdersRepository, TemporalOrdersRepository>();
+builder.Services.AddScoped<ITemporalOrdersUnitOfWork, TemporalOrdersUnitOfWork>();
+builder.Services.AddScoped<IKardexRepository, KardexRepository>();
+builder.Services.AddScoped<IKardexUnitOfWork, KardexUnitOfWork>();
+builder.Services.AddScoped<IBanksRepository, BanksRepository>();
+builder.Services.AddScoped<IBanksUnitOfWork, BanksUnitOfWork>();    
 builder.Services.AddScoped<IRuntimeInformationWrapper, RuntimeInformationWrapper>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>

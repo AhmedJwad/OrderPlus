@@ -1,0 +1,12 @@
+﻿﻿@if (bank is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+           <FormWithName @ref="bankForm" Label="Bank:" model="bank" OnValidSubmit="EditAsync" ReturnAction="Return"/>
+        </DialogContent>
+    </MudDialog>
+}

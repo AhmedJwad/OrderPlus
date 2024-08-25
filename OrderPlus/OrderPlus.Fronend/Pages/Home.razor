@@ -1,7 +1,12 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<MudTabs>
+    <MudTabPanel Text="News and Promotions">
+        <MudContainer MaxWidth="MaxWidth.Large">
+           @*  <NewsAndPromotions/> *@
+        </MudContainer>
+    </MudTabPanel>
+    <MudTabPanel Text="Product Catalog">
+        <ProductCatalog/>
+    </MudTabPanel>
+</MudTabs>

@@ -3,11 +3,11 @@
         <MudImage Src="images/VendePuesLogo_transparent.png" alt="Logo" class="logo" />
     </div>
     <br />
-    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">Inicio</MudNavLink>
-    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">Acerca de</MudNavLink> 
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">Home</MudNavLink>
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">About</MudNavLink> 
     <AuthorizeView Roles="Admin">
         <Authorized>
-            <MudNavLink Href="/banks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBalance">Bancos</MudNavLink>
+            <MudNavLink Href="/banks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBalance">Banks</MudNavLink>
             <MudNavLink Href="/categories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Category">Categories</MudNavLink>
             <MudNavLink Href="/purchases" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ShoppingBag">Compras</MudNavLink>
             <MudNavLink Href="/inventories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Rule">Inventarios</MudNavLink>
