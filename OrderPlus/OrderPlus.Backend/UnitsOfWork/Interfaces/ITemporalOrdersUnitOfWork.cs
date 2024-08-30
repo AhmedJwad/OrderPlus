@@ -12,5 +12,6 @@ namespace OrderPlus.Backend.UnitsOfWork.Interfaces
         Task<ActionResponse<TemporalOrderDTO>> AddFullAsync(string email, TemporalOrderDTO temporalOrderDTO);
         Task<ActionResponse<IEnumerable<TemporalOrder>>> GetAsync(string email);
         Task<ActionResponse<int>> GetCountAsync(string email);
+        Task<ActionResponse<TemporalOrder>> DeleteAsync(int id);
     }
 }

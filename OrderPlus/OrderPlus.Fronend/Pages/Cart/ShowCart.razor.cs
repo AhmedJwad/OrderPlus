@@ -6,6 +6,9 @@ using OrderPlus.Fronend.Repositories;
 using OrderPlus.Fronend.Shared;
 using OrderPlus.Shared.DTOs;
 using OrderPlus.Shared.Entites;
+using OrderPlus.Shared.Enums;
+using OrderPlus.Shared.Responses;
+using System.Net.Mail;
 
 namespace OrderPlus.Fronend.Pages.Cart
 {
@@ -101,7 +104,7 @@ namespace OrderPlus.Fronend.Pages.Cart
                 { "Message", "Are you sure you want to delete the record??" }
             };
             var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
-            var dialog = dialogService.Show<ConfirmDialog>("Confirmación", parameters, options);
+            var dialog = dialogService.Show<ConfirmDialog>("Confirmation", parameters, options);
             var result = await dialog.Result;
             if (result.Canceled)
             {
@@ -186,12 +189,94 @@ namespace OrderPlus.Fronend.Pages.Cart
                 return;
             }
             
-            snackbar.Add("Modified product in the shopping cart.", Severity.Success);
-            // Call LoadListAsync method
-            var tableState = new TableState(); // You need to provide the appropriate TableState
-            await table.ReloadServerData();            
+            snackbar.Add("Modified product in the shopping cart.", Severity.Success);          
+            await table.ReloadServerData();          
 
         }
-        
+        private  async Task ConfirmOrderAsync()
+        {
+            if(selectedPaymeontOption==1)
+            {
+                if(selectedBank.Id==0)
+                {
+                    snackbar.Add("You must select a bank.", Severity.Error);
+                    return;
+                }
+                if(string.IsNullOrEmpty(email) || !IsValidEmail(email))
+                {
+                    snackbar.Add("You must enter a valid email.", Severity.Error);
+                    return;
+                }
+            }
+            var parameters = new DialogParameters
+            {
+                { "Message", "Are you sure you want to confirm the order?" }
+            };
+            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
+            var dialog = dialogService.Show<ConfirmDialog>("Confirmation", parameters, options);
+            var result = await dialog.Result;
+            if (result.Canceled)
+            {
+                return;
+            }
+            if(selectedPaymeontOption==1)
+            {
+                loading = true;
+                await InvokeAsync(StateHasChanged);
+                var paymentDTO = new PaymentDTO
+                {
+                    BankId=selectedBank.Id,
+                    Email=email,
+                    Value=sumValue,
+                };
+                var httpResponse = await repository.PostAsync<PaymentDTO, ActionResponse<string>>("/api/payments", paymentDTO);
+                var response = httpResponse.Response;
+                loading = false;
+                if(!response!.WasSuccess)
+                {
+                    snackbar.Add(response.Message, Severity.Error);
+                    return;
+                }
+                snackbar.Add(response.Message, Severity.Success);
+                OrderDTO.Email = email;
+                OrderDTO.Value=sumValue;
+                OrderDTO.Reference = response.Result!;
+                OrderDTO.BankId=selectedBank.Id;
+
+            }    
+            if(selectedPaymeontOption==0)
+            {
+                OrderDTO.OrderType = OrderType.PaymentAgainstDelivery;
+                OrderDTO.Email = "none@none.com";
+                OrderDTO.Reference = "NA";
+            }
+            else
+            {
+                OrderDTO.OrderType = OrderType.PayOnLine;
+            }
+            var httpActionResponse = await repository.PostAsync("/api/orders", OrderDTO);
+            if (httpActionResponse.Error)
+            {
+                var message = await httpActionResponse.GetErrorMessageAsync();
+                snackbar.Add(message, Severity.Error);
+                return;
+            }
+
+            navigationManager.NavigateTo("/Cart/OrderConfirmed");
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var mailAddress = new MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+
+                return false;
+            }
+        }
     }
 }

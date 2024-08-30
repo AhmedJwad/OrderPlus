@@ -5,7 +5,57 @@
         <MudItem>
             <MudText Typo="Typo.h5"><i class="bi bi-bag"></i> Shopping Cart</MudText>
         </MudItem>
-       
+        <MudGrid>
+            <MudItem xs="12" sm="6">
+                <MudCardContent>
+                    <EditForm Model="OrderDTO" OnValidSubmit="ConfirmOrderAsync">
+                        <DataAnnotationsValidator />
+                        <MudTextField Label="Comments"
+                                      @bind-Value="@OrderDTO.Remarks"
+                                      For="@(() => OrderDTO.Remarks)"
+                                      Lines="3"
+                                      Class="mb-4" />
+                        <MudText Typo="Typo.h5">Quantity products: <strong>@($"{sumQuantity:N2}")</strong></MudText>
+                        <MudText Typo="Typo.h5">Value: <strong>@($"{sumValue:C2}")</strong></MudText>
+                        <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.CheckCircle" Color="Color.Primary" ButtonType="ButtonType.Submit" class="my-3">
+                            Confirm Order
+                        </MudButton>
+                    </EditForm>
+                </MudCardContent>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudCardContent>
+                    <div style="display: flex; align-items: center;">
+                        <div style="flex: 1;">
+                            <MudRadioGroup T="int" @bind-Value="selectedPaymeontOption">
+                                <MudRadio T="int" Value=0>Cash on delivery</MudRadio>
+                                <MudRadio T="int" Value=1>PSE payment</MudRadio>
+                            </MudRadioGroup>
+                        </div>
+                        <div style="text-align: center;">
+                            <MudImage Src="/images/PSE.png" Alt="PSE" Width="180" />
+                        </div>
+                    </div>
+                    @if (selectedPaymeontOption == 1)
+                    {
+                        <MudAutocomplete T="Bank"
+                                         Label="Banco"
+                                         Placeholder="--Select a bank--"
+                                         SearchFunc="SearchBankAsync"
+                                         Value="selectedBank"
+                                         ValueChanged="BankChanged"
+                                         ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                            <ItemTemplate Context="itemContext">
+                                @itemContext.Name
+                            </ItemTemplate>
+                        </MudAutocomplete>
+                        <MudTextField Label="Email"
+                                      @bind-Value="@email"
+                                      Class="mb-4" />
+                    }
+                </MudCardContent>
+            </MudItem>
+        </MudGrid>
 
         @if(loading)
         {
@@ -56,8 +106,7 @@
                 <MudTd DataLabel="image">
                     <img src="https://localhost:7106/@context.Product!.MainImage" alt="Image Principal" style="max-width: 100px; max-height: 100px;" />
                 </MudTd>
-                <MudTd DataLabel="Actions">
-                    <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Edit" Color="Color.Warning" Href=@($"/Cart/ModifyTemporalOrder/{context.Id}")>Edit</MudButton>
+                <MudTd DataLabel="Actions">                   
                     <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick=@(() => DeleteAsync(@context.Id))>Delete</MudButton>
                 </MudTd>
             </RowTemplate>
