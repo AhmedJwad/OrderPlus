@@ -1,0 +1,116 @@
+﻿@page "/cart/orderDetails/{OrderId:int}"
+@using OrderPlus.Shared.Enums
+
+@if (order is null)
+{
+    <Loading />
+}
+else
+{
+    <GenericList  MyList="order.OrderDetails!.ToList()">
+        <Body>
+            <MudCard>
+                <div class="card-header">
+                    <span>
+                        <MudText Typo="Typo.h6" Class="me-4"><i class="bi bi-star"></i> @order.User!.FullName</MudText>
+                        @if (order.OrderStatus == OrderPlus.Shared.Enums.OrderStatus.New)
+                        {
+                            <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick=@(() => CancelOrderAsync())>
+                               Cancel
+                            </MudButton>
+                            <AuthorizeView Roles="Admin">
+                                <Authorized>
+                                    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.LocalShipping" Color="Color.Primary" OnClick=@(() => DispatchOrderAsync())>
+                                        Fulfill
+                                    </MudButton>
+                                </Authorized>
+                            </AuthorizeView>
+                        }
+                        <AuthorizeView Roles="Admin">
+                            <Authorized>
+                                @if (order.OrderStatus == OrderStatus.Dispatched)
+                                {
+                                    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Send" Color="Color.Secondary" OnClick=@(() => SendOrderAsync())>
+                                        Send
+                                    </MudButton>
+                                }
+                                @if (order.OrderStatus == OrderStatus.Sent)
+                                {
+                                    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.CheckCircle" Color="Color.Tertiary" OnClick=@(() => ConfirmOrderAsync())>
+                                       Confirm
+                                    </MudButton>
+                                }
+                            </Authorized>
+                        </AuthorizeView>
+                        <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Info" Href="/orders">
+                           Return
+                        </MudButton>
+                    </span>
+                </div>
+                <div class="row mx-2 my-2">
+                    <div class="col-2">
+                        <p>Customer</p>                       
+                        <p>Phone</p>
+                        <p>Email</p>
+                        <p>Address</p>
+                        <p>Payment type</p>
+                    </div>
+                    <div class="col-4">
+                        <p><strong>@order.User!.FullName</strong></p>                       
+                        <p><strong>@order.User!.PhoneNumber</strong></p>
+                        <p><strong>@order.User!.UserName</strong></p>
+                        <p><strong>@order.User!.Address, @order.User.City!.Name, @order.User.City.State!.Name, @order.User.City.State.Country!.Name</strong></p>
+                        <p><strong>@EnumHelper.GetEnumDescription(order.OrderType)</strong></p>
+                    </div>
+                    <div class="col-2">
+                        <p>State</p>
+                        <p>Date</p>
+                        <p>Comments</p>
+                        <p>Lines</p>
+                        <p>Amount</p>
+                        <p>Value</p>
+                    </div>
+                    <div class="col-4">
+                        <p><strong>@EnumHelper.GetEnumDescription(order.OrderStatus)</strong></p>
+                        <p><strong>@($"{order.Date.ToLocalTime():yyyy/MM/dd hh:mm tt}")</strong></p>
+                        <p><strong>@(string.IsNullOrEmpty(order.Remarks) ? "NA" : order.Remarks)</strong></p>
+                        <p><strong>@order.Lines</strong></p>
+                        <p><strong>@($"{order.Quantity:N2}")</strong></p>
+                        <p><strong>@($"{order.Value:C2}")</strong></p>
+                    </div>
+                </div>
+
+                <MudTable Items="@Details"
+                          @ref="table"
+                          ServerData="@(new Func<TableState, Task<TableData<OrderDetail>>>(LoadListAsync))"
+                          Dense="true"
+                          Hover="true"
+                          Striped="true"
+                          FixedHeader="true"
+                          FixedFooter="true">
+                    <HeaderContent>
+                        <MudTh>Name</MudTh>
+                        <MudTh>Image</MudTh>
+                        <MudTh>Comments</MudTh>
+                        <MudTh>Amount</MudTh>
+                        <MudTh>Price</MudTh>
+                        <MudTh>Value</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="Image">
+                            <img src="https://localhost:7106/@context.Image" alt="Main Image" style="max-width: 100px; max-height: 100px;" />
+                        </MudTd>
+                        <MudTd DataLabel="Comments">@context.Remarks</MudTd>
+                        <MudTd DataLabel="Amount">@($"{context.Quantity:N2}")</MudTd>
+                        <MudTd DataLabel="Price">@($"{context.Price:C2}")</MudTd>
+                        <MudTd DataLabel="Value">@($"{context.Value:C2}")</MudTd>
+                    </RowTemplate>
+                    <NoRecordsContent>
+                        <MudText>No orders found.</MudText>
+                    </NoRecordsContent>
+                </MudTable>
+            </MudCard>
+        </Body>
+    </GenericList>
+}
