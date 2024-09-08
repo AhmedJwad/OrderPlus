@@ -18,7 +18,7 @@ namespace OrderPlus.Fronend.Pages.Categories
         private int totalRecords = 0;
         private bool loading;
         private const string baseUrl = "api/categories";
-        private string infoFormat = "{first_item}-{last_item} de {all_items}";
+        private string infoFormat = "{first_item}-{last_item} of {all_items}";
 
         [Inject] private IRepository repository { get; set; } = null!;
         [Inject] private IDialogService dialogService { get; set; } = null!;

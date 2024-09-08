@@ -18,7 +18,7 @@ namespace OrderPlus.Fronend.Pages.States
         private int totalRecords = 0;
         private bool loading;
         private const string baseUrl = "api/Cities";
-        private string infoFormat = "{first_item}-{last_item} de {all_items}";
+        private string infoFormat = "{first_item}-{last_item} of {all_items}";
 
         [Parameter] public int StateId { get; set; }
 

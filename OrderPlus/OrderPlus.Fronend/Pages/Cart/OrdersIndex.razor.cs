@@ -16,7 +16,7 @@ namespace OrderPlus.Fronend.Pages.Cart
         private int totalRecords = 0;
         private bool loading;
         private const string baseUrl = "api/orders";
-        private string infoFormat = "{first_item}-{last_item} de {all_items}";
+        private string infoFormat = "{first_item}-{last_item} of {all_items}";
         [Inject] private IRepository repository { get; set; } = null!;
         [Inject] private ISnackbar snackbar { get; set; } = null!;
 

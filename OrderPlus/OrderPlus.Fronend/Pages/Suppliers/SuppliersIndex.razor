@@ -1,0 +1,56 @@
+﻿@page "/suppliers"
+
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudTable Items="@Suppliers"
+              @ref="table"
+              ServerData="@(new Func<TableState, Task<TableData<Supplier>>>(LoadListAsync))"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true">
+        <ToolBarContent>
+            <div class="d-flex justify-content-between">
+                <MudText Typo="Typo.h6" Class="me-4"><i class="bi bi-truck"></i> Suppliers</MudText>
+                <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Add" Color="Color.Info" OnClick="@(() => ShowModalAsync())">Create</MudButton>
+            </div>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Contact</MudTh>
+            <MudTh>Address</MudTh>
+            <MudTh>Telephone</MudTh>
+            <MudTh>Email</MudTh>
+            <MudTh>Action</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.SupplierName</MudTd>
+            <MudTd DataLabel="Contact">@context.ContactFullName</MudTd>
+            <MudTd DataLabel="Address">@context.Address, @context.City!.Name, @context.City!.State!.Name, @context.City!.State!.Country!.Name</MudTd>
+            <MudTd DataLabel="Telephone">@context.Phone</MudTd>
+            <MudTd DataLabel="Email">@context.Email</MudTd>
+            <MudTd DataLabel="Actions">
+                <div style="display: flex; justify-content: center; gap: 10px;">
+                    <MudButton Style="width: 50px;" Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="@(() => ShowModalAsync(context.Id, true))" />
+                    <MudButton Style="width: 50px;" Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteAsync(@context))" />
+                </div>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>No records found.</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString="Number of Records:"
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText="Todos"
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}

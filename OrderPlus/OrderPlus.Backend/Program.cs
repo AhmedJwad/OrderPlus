@@ -82,6 +82,8 @@ builder.Services.AddScoped<IKardexRepository, KardexRepository>();
 builder.Services.AddScoped<IKardexUnitOfWork, KardexUnitOfWork>();
 builder.Services.AddScoped<IBanksRepository, BanksRepository>();
 builder.Services.AddScoped<IBanksUnitOfWork, BanksUnitOfWork>();
+builder.Services.AddScoped<ISuppliersRepository, SuppliersRepository>();
+builder.Services.AddScoped<ISuppliersUnitOfWork, SuppliersUnitOfWork>();
 builder.Services.AddScoped<IRuntimeInformationWrapper, RuntimeInformationWrapper>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>

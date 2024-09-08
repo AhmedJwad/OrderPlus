@@ -6,25 +6,27 @@ using OrderPlus.Fronend.Shared;
 using OrderPlus.Shared.Entites;
 using System.Net;
 
-namespace OrderPlus.Fronend.Pages.Products
+namespace OrderPlus.Fronend.Pages.Suppliers
 {
     [Authorize(Roles = "Admin")]
-    public partial class ProductsIndex
+    public partial class SuppliersIndex
     {
-        public List<Product>? Products { get; set; }
-        private MudTable<Product> table = new();
+        private MudTable<Supplier> table = new();
         private readonly int[] pageSizeOptions = { 10, 25, 50, 5, int.MaxValue };
         private int totalRecords = 0;
         private bool loading;
-        private const string baseUrl = "api/products";
-        private string infoFormat = "{first_item}-{last_item} of {all_items}";
-        [Inject] private IRepository repository { get; set; } = null!;
-        [Inject] private IDialogService dialogService { get; set; } = null!;
-        [Inject] private ISnackbar snackbar { get; set; } = null!;
-        [Inject] private NavigationManager navigationManager { get; set; } = null!;
-        [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
 
-        protected override async Task OnInitializedAsync()
+        private const string baseUrl = "api/suppliers";
+        private string infoFormat = "{first_item}-{last_item} of {all_items}";
+        [Inject] private IRepository Repository { get; set; } = null!;
+        [Inject] private IDialogService DialogService { get; set; } = null!;
+        [Inject] private ISnackbar Snackbar { get; set; } = null!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+        [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
+        public List<Supplier>? Suppliers { get; set; }
+
+
+        protected  override async Task OnInitializedAsync()
         {
             await LoadAsync();
         }
@@ -38,51 +40,48 @@ namespace OrderPlus.Fronend.Pages.Products
         {
             loading = true;
             var url = $"{baseUrl}/recordsnumber?page=1&recordsnumber={int.MaxValue}";
-
             if (!string.IsNullOrWhiteSpace(Filter))
             {
                 url += $"&filter={Filter}";
             }
-            var responseHttp = await repository.GetAsync<int>(url);
+            var responseHttp = await Repository.GetAsync<int>(url);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
-                snackbar.Add(message, Severity.Error);
+                Snackbar.Add(message, Severity.Error);
                 return false;
             }
             totalRecords = responseHttp.Response;
             loading = false;
             return true;
         }
-        private async Task<TableData<Product>> LoadListAsync(TableState state)
+
+        private async Task<TableData<Supplier>> LoadListAsync(TableState state)
         {
             int page = state.Page + 1;
-            int pageSize = state.PageSize;
+            int pageSize= state.PageSize;
             var url = $"{baseUrl}?page={page}&recordsnumber={pageSize}";
-
             if (!string.IsNullOrWhiteSpace(Filter))
             {
                 url += $"&filter={Filter}";
             }
-
-            var responseHttp = await repository.GetAsync<List<Product>>(url);
+           var responseHttp=await Repository.GetAsync<List<Supplier>>(url);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
-                snackbar.Add(message, Severity.Error);
-                return new TableData<Product> { Items = [], TotalItems = 0 };
+                Snackbar.Add(message, Severity.Error);
+                return new TableData<Supplier> { Items = [], TotalItems = 0 };
             }
             if (responseHttp.Response == null)
             {
-                return new TableData<Product> { Items = [], TotalItems = 0 };
+                return new TableData<Supplier> { Items = [], TotalItems = 0 };
             }
-            return new TableData<Product>
+            return new TableData<Supplier>
             {
                 Items = responseHttp.Response,
                 TotalItems = totalRecords
             };
         }
-
         private async Task SetFilterValue(string value)
         {
             Filter = value;
@@ -90,62 +89,60 @@ namespace OrderPlus.Fronend.Pages.Products
             await table.ReloadServerData();
         }
 
-        private async Task ShowModalAsync(int id = 0, bool isEdit = false)
+        private async Task ShowModalAsync(int id=0, bool isEdit=false)
         {
             var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
             IDialogReference? dialog;
-            if (isEdit)
+            if(isEdit)
             {
                 var parameters = new DialogParameters
                 {
-                    { "ProductId", id }
+                    {"id" , id}
                 };
-                dialog = dialogService.Show<ProductEdit>("Edit Product", parameters, options);
+                dialog = DialogService.Show<SupplierEdit>("Edit Supplier", parameters, options);
             }
             else
             {
-                dialog = dialogService.Show<ProductCreate>("Create", options);
+                dialog = DialogService.Show<SupplierCreate>("Create Supplier", options);
             }
-
             var result = await dialog.Result;
-            if (!result.Canceled)
+            if(!result.Canceled)
             {
                 await LoadAsync();
                 await table.ReloadServerData();
             }
         }
-        //TODO: show kadex model
-        private async Task DeleteAsync(Product product)
+        private async Task DeleteAsync(Supplier supplier)
         {
             var parameters = new DialogParameters
             {
-                { "Message", $"Are you sure you want to delete the product: {product.Name}?" }
+                { "Message", $"Are you sure you want to delete the provider?: {supplier.SupplierName}?" }
             };
             var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
-            var dialog = dialogService.Show<ConfirmDialog>("Confirmation", parameters, options);
+            var dialog = DialogService.Show<ConfirmDialog>("Confirmation", parameters, options);
             var result = await dialog.Result;
             if (result.Canceled)
             {
                 return;
             }
 
-            var responseHttp = await repository.DeleteAsync<Product>($"api/products/{product.Id}");
+            var responseHttp = await Repository.DeleteAsync<Supplier>($"api/suppliers/{supplier.Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    navigationManager.NavigateTo("/products");
+                    NavigationManager.NavigateTo("/suppliers");
                 }
                 else
                 {
                     var message = await responseHttp.GetErrorMessageAsync();
-                    snackbar.Add(message, Severity.Error);
+                    Snackbar.Add(message, Severity.Error);
                 }
                 return;
             }
             await LoadAsync();
             await table.ReloadServerData();
-            snackbar.Add("Product removed.", Severity.Success);
+            Snackbar.Add("Supplier removed.", Severity.Success);
         }
     }
 }

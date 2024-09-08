@@ -17,7 +17,7 @@ namespace OrderPlus.Fronend.Pages.Countries
         private int totalRecords = 0;
         private bool loading;
         private const string baseUrl = "api/State";
-        private string infoFormat = "{first_item}-{last_item} de {all_items}";
+        private string infoFormat = "{first_item}-{last_item} of {all_items}";
         [Parameter] public int CountryId { get; set; }
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private IDialogService DialogService { get; set; } = null!;

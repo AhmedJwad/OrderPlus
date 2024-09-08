@@ -1,0 +1,95 @@
+﻿﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+
+<EditForm EditContext="editContext" OnValidSubmit="OnDataAnnotationsValidatedAsync">
+   <DataAnnotationsValidator/>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-2">
+                <MudTextField Label="Supplier Name"
+                              @bind-Value="@supplier.SupplierName"
+                              For="@(() => supplier.SupplierName)"
+                              Class="mb-2" />
+            </div>          
+            <div class="mb-2">
+                <MudTextField Label="Names Contact"
+                              @bind-Value="@supplier.ContactFirstName"
+                              For="@(() => supplier.ContactFirstName)"
+                              Class="mb-2" />
+            </div>
+            <div class="mb-2">
+                <MudTextField Label="last Name Contact"
+                              @bind-Value="@supplier.ContactLastName"
+                              For="@(() => supplier.ContactLastName)"
+                              Class="mb-2" />
+            </div>
+            <div class="mb-2">
+                <MudTextField Label="Supplier Email"
+                              @bind-Value="@supplier.Email"
+                              For="@(() => supplier.Email)"
+                              InputType="InputType.Email"
+                              Class="mb-2" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="mb-2">
+                <MudAutocomplete T="Country"
+                                 Label="Country"
+                                 Placeholder="--Select a Country--"
+                                 SearchFunc="SearchCountries"
+                                 Value="selectedCountry"
+                                 ValueChanged="CountryChangedAsync"
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Name
+                    </ItemTemplate>
+                </MudAutocomplete>
+            </div>
+            <div class="mb-2">
+                <MudAutocomplete T="State"
+                                 Label="State"
+                                 Placeholder="--Select a State--"
+                                 SearchFunc="SearchStates"
+                                 Value="selectedState"
+                                 ValueChanged="StateChangedAsync"
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Name
+                    </ItemTemplate>
+                </MudAutocomplete>
+            </div>
+            <div class="mb-2">
+                <MudAutocomplete T="City"
+                                 Label="City"
+                                 Placeholder="--Select a City--"
+                                 SearchFunc="SearchCity"
+                                 Value="selectedCity"
+                                 ValueChanged="CityChanged"
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Name
+                    </ItemTemplate>
+                </MudAutocomplete>
+            </div>
+            <div class="mb-2">
+                <MudTextField Label="Address"
+                              @bind-Value="@supplier.Address"
+                              For="@(() => supplier.Address)"
+                              Class="mb-2" />
+            </div>
+            <div class="mb-2">
+                <MudTextField Label="Phone"
+                              @bind-Value="@supplier.Phone"
+                              For="@(() => supplier.Phone)"
+                              InputType="InputType.Telephone"
+                              Class="mb-2" />
+            </div>
+        </div>
+    </div>   
+    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Check" Color="Color.Primary" ButtonType="ButtonType.Submit">
+        Create
+    </MudButton>
+    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Info" OnClick="ReturnAction" Class="me-2">
+        Return
+    </MudButton>
+</EditForm>
