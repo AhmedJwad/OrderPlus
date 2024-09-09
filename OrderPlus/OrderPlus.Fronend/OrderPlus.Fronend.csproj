@@ -9,6 +9,10 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\images\VendePuesLogo_transparent.png" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="wwwroot\images\photo_2022-07-08_00-32-53.jpg" />
+  </ItemGroup>
 
   
   <ItemGroup>
@@ -16,8 +20,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="MudBlazor" Version="6.19.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Stripe.net" Version="45.11.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />

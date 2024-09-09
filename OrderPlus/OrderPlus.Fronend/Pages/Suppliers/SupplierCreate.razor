@@ -1,5 +1,5 @@
-﻿<h3>SupplierCreate</h3>
-
-@code {
-
-}
+﻿﻿<MudDialog>
+    <DialogContent>
+       <SupplierForm @ref="supplierForm" supplier="@supplier" OnValidSubmit="CreateAsync" ReturnAction="Return"/>
+    </DialogContent>
+</MudDialog>

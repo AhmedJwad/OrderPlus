@@ -1,5 +1,12 @@
-﻿<h3>SupplierEdit</h3>
-
-@code {
-
+﻿﻿@if (supplier is null)
+{
+        <Loading/>
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+          <SupplierForm @ref="supplierForm" supplier="supplier" OnValidSubmit="EditAsync" ReturnAction="Return" IsEdit />
+        </DialogContent>
+    </MudDialog>
 }

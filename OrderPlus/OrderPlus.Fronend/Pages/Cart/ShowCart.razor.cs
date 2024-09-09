@@ -8,6 +8,9 @@ using OrderPlus.Shared.DTOs;
 using OrderPlus.Shared.Entites;
 using OrderPlus.Shared.Enums;
 using OrderPlus.Shared.Responses;
+using Stripe;
+using Stripe.Issuing;
+using System.Diagnostics;
 using System.Net.Mail;
 
 namespace OrderPlus.Fronend.Pages.Cart
@@ -34,6 +37,15 @@ namespace OrderPlus.Fronend.Pages.Cart
         [Parameter] public int TemporalOrderId { get; set; }
         private TemporalOrderDTO? temporalOrderDTO;
         private TemporalOrder? temporalOrder;
+
+        private readonly string _testApiKey = "pk_test_51I44aYEHIC75aD3PjfR00cO5TjSshZF7ZhdgTURnGQGkNt93hOvFQlzrjgbYlJL2kA4CPTFoFS7HWkznowDRqHTy00mxnTnDKB";
+        private readonly string _testApiKeySecret =
+            "sk_test_51I44aYEHIC75aD3PzFl0uNm7gnEpKsyv8zPqFj7ulPCYGpY6zv3m1Q93Xx5JwjKH7xl4uZj6RNKTvOMfCwTG3wN000WbSXyUum";
+        private Stripe.Token? _stripeToken;
+        private Stripe.TokenService? _tokenService;
+        public string CreditCard { get; set; } = null!;
+        public string Expiry { get; set; } = null!;
+        public string CVV { get; set; } = null!;
         protected override async Task OnInitializedAsync()
         {
             await LoadBanksAsync();
@@ -229,12 +241,19 @@ namespace OrderPlus.Fronend.Pages.Cart
                     Email=email,
                     Value=sumValue,
                 };
+               
                 var httpResponse = await repository.PostAsync<PaymentDTO, ActionResponse<string>>("/api/payments", paymentDTO);
                 var response = httpResponse.Response;
                 loading = false;
                 if(!response!.WasSuccess)
                 {
                     snackbar.Add(response.Message, Severity.Error);
+                    return;
+                }
+                bool wasPayed = await PayWithStripeAsync();
+                if (!wasPayed)
+                {
+                   
                     return;
                 }
                 snackbar.Add(response.Message, Severity.Success);
@@ -265,6 +284,8 @@ namespace OrderPlus.Fronend.Pages.Cart
             navigationManager.NavigateTo("/Cart/OrderConfirmed");
         }
 
+        
+
         private bool IsValidEmail(string email)
         {
             try
@@ -276,6 +297,75 @@ namespace OrderPlus.Fronend.Pages.Cart
             {
 
                 return false;
+            }
+        }
+        private async Task<bool> PayWithStripeAsync()
+        {
+            await CreateTokenAsync();
+            if (_stripeToken == null)
+            {
+                return false;
+            }
+            await MakePaymentAsync();
+            return true ;
+        }
+
+        private async Task<bool> MakePaymentAsync()
+        {
+            try
+            {
+                StripeConfiguration.ApiKey = _testApiKeySecret;
+                ChargeCreateOptions options = new ChargeCreateOptions
+                {
+                    Amount = (long)sumValue * 100,
+                    Currency = "USD",
+                    Description = $"Order: {DateTime.Now:yyyy/MM/dd hh:mm}",
+                    Capture = true,
+                    ReceiptEmail =email,
+                    Source = _stripeToken!.Id
+                };
+
+                ChargeService service = new ChargeService();
+                Charge charge = await service.CreateAsync(options);
+                return true;
+            }
+            catch (Exception  ex)
+            {
+                // Handle and log any errors related to Stripe API
+                Debug.WriteLine($"StripeException: {ex.Message}");
+                return false;
+               
+            }
+        }
+
+        private async Task<string> CreateTokenAsync()
+        {
+            try
+            {
+                StripeConfiguration.ApiKey = _testApiKey;
+                ChargeService service = new ChargeService();
+                int year = int.Parse(Expiry.Substring(0, 2));
+                int month = int.Parse(Expiry.Substring(3, 2))+ 2000;
+                TokenCreateOptions tokenOptions = new TokenCreateOptions
+                {
+                    Card = new TokenCardOptions
+                    {
+                        Number = CreditCard,
+                        ExpYear = month.ToString(),
+                        ExpMonth = year.ToString(),
+                        Cvc = CVV,
+                        Name =email
+                    }
+                };
+
+                _tokenService = new Stripe.TokenService();
+                _stripeToken = await _tokenService.CreateAsync(tokenOptions);
+                return _stripeToken.Id;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

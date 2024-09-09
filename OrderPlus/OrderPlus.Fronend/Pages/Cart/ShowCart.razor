@@ -52,6 +52,30 @@
                         <MudTextField Label="Email"
                                       @bind-Value="@email"
                                       Class="mb-4" />
+                        <MudTextField T="string" Label="Card Number"
+                                      Placeholder="Enter your card number"
+                                      MaxLength="16"
+                                      Adornment="Adornment.Start"
+                                      AdornmentIcon="@Icons.Material.Filled.CreditCard"
+                                      @bind-Value="@CreditCard"
+                                      Class="mb-4" />
+
+                        <MudTextField T="string" Label="CVV"
+                                      Placeholder="Enter CVV"
+                                      MaxLength="3"
+                                      InputType="InputType.Password"
+                                      Adornment="Adornment.Start"
+                                      AdornmentIcon="@Icons.Material.Filled.Lock"
+                                      @bind-Value="@CVV"
+                                      Class="mb-4" />
+
+                        <MudTextField T="string"  Label = "Expiration Date"
+                                       Placeholder="MM/YY"
+                                       @bind-Value="@Expiry"
+                                       Class="mb-4" />
+
+
+           
                     }
                 </MudCardContent>
             </MudItem>

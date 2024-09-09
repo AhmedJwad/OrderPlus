@@ -36,7 +36,7 @@ namespace OrderPlus.Fronend.Pages.Suppliers
             if (IsEdit)
             {
                 await LoadStatesAsyn(supplier!.City!.State!.Country!.Id);
-                await LoadStatesAsyn(supplier!.City!.State!.Id);
+                await LoadCitiesAsyn(supplier!.City!.State!.Id);
                 selectedCountry = supplier!.City!.State!.Country!;
                 selectedState = supplier!.City!.State!;
                 selectedCity = supplier!.City!;
@@ -88,7 +88,7 @@ namespace OrderPlus.Fronend.Pages.Suppliers
         }
         private async Task LoadStatesAsyn(int countryId)
         {
-            var responseHttp = await repository.GetAsync<List<State>>($"/api/states/combo/{countryId}");
+            var responseHttp = await repository.GetAsync<List<State>>($"/api/State/combo/{countryId}");
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -99,7 +99,7 @@ namespace OrderPlus.Fronend.Pages.Suppliers
         }
         private async Task LoadCitiesAsyn(int stateId)
         {
-            var responseHttp = await repository.GetAsync<List<City>>($"/api/cities/combo/{stateId}");
+            var responseHttp = await repository.GetAsync<List<City>>($"/api/Cities/combo/{stateId}");
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
