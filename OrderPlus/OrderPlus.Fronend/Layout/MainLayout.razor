@@ -1,18 +1,31 @@
 ﻿@inherits LayoutComponentBase
+@using System.Globalization
 
-<MudThemeProvider IsDarkMode="_darkMode" />
+@if (CultureInfo.CurrentCulture.Name == "ar-EG")
+{
+    Direction = "rtl";
+    _rightToLeft = true;
+}
+else
+{
+    Direction = "ltr";
+    _rightToLeft = false;
+}
+<MudRTLProvider RightToLeft="@_rightToLeft" >
+<MudThemeProvider IsDarkMode="_darkMode"  />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
+<MudLayout dir="@_rightToLeft">
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudLink Href="/" Typo="Typo.h5" Class="ml-3" Color="Color.Inherit">Venda Pues</MudLink>
+        <MudLink Href="/" Typo="Typo.h5" Class="ml-3" Color="Color.Inherit">Order Plus</MudLink>
         <MudSpacer />
+        <CultureSelector/>
         <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Inherit" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight">
            <AuthLinks /> 
         </MudMenu>
-        <MudIconButton Icon="@_icon" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DarkModeToggle())" />
+        <MudIconButton Icon="@_icon" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DarkModeToggle())" />        
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu />
@@ -22,4 +35,5 @@
             @Body
         </MudContainer>
     </MudMainContent>
-</MudLayout>                                    
+</MudLayout>   
+</MudRTLProvider>

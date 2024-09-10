@@ -7,6 +7,7 @@ using MudBlazor;
 using MudBlazor.Services;
 using OrderPlus.Fronend;
 using OrderPlus.Fronend.AuthenticationProviders;
+using OrderPlus.Fronend.Helpers;
 using OrderPlus.Fronend.Repositories;
 using OrderPlus.Fronend.Services;
 
@@ -16,6 +17,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7106/") });
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddLocalization();
 builder.Services.AddMudServices(config =>
 {
     config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
@@ -31,6 +33,7 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationProviderJWT>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
 builder.Services.AddScoped<ILoginService, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
-
-
+var host=builder.Build();
+await host.SetDefaultCulture();
+await host.RunAsync();
 await builder.Build().RunAsync();

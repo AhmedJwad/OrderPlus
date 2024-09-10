@@ -1,0 +1,7 @@
+﻿<strong>Language : </strong>
+<select class="form-control" @bind="_culture" style="width:100px;">
+    @foreach (var lang in cultures)
+    {
+        <option value="@lang">@lang.DisplayName</option>
+    }
+</select>
