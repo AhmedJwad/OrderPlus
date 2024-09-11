@@ -1,10 +1,14 @@
-﻿<MudNavMenu>
+﻿@inject IStringLocalizer<Resource> _Localizer
+
+
+    
     <div class="nav-item logo-container">
-        <MudImage Src="images/VendePuesLogo_transparent.png" alt="Logo" class="logo" />
+     <MudImage Src="images/Order_plus.png" alt="Logo" Class="rounded" Style="width: 220px; height: 150px; margin-right: 10px;margin-left: 10px;" />
     </div>
     <br />
-    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">Home</MudNavLink>
-    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">About</MudNavLink> 
+    <MudNavMenu>
+<MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">@_Localizer["Home"]</MudNavLink>
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">@_Localizer["About"]</MudNavLink> 
     <AuthorizeView Roles="Admin">
         <Authorized>
             <MudNavLink Href="/banks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBalance">Banks</MudNavLink>
@@ -28,6 +32,5 @@
         <Authorized>
             <MudNavLink Href="/orders" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">My Orders</MudNavLink>
         </Authorized>
-    </AuthorizeView>
-       
+    </AuthorizeView>       
 </MudNavMenu>

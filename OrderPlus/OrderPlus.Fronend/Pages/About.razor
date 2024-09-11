@@ -1,11 +1,12 @@
 ﻿@page "/about"
+@inject IStringLocalizer<Resource> _Localizer
 
 <div class="center-content">
     <MudText Typo="Typo.h2" Class="me-4">Order Plus</MudText>
     <MudImage Src="images/photo_2024-09-08_06-08-46.jpg" Class="mb-3 rounded-circle" Style="width: 250px; height: 250px;" />
 
     <p>
-        The pursuit of opportunities and the pressing need to meet people's needs lead many to turn to the "digital," a local term that captures the creativity involved in finding ways to earn income. This situation prompts countless individuals to ask crucial questions: What kind of business should I start? What product or service should I offer? How can I sustain myself? These questions give rise to a wide range of business ideas, each as valuable as they are innovative.
+        @_Localizer["ContentAbout"]
     </p>
   
     

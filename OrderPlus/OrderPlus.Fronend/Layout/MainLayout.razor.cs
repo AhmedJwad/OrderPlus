@@ -10,7 +10,7 @@ namespace OrderPlus.Fronend.Layout
         private bool _darkMode { get; set; } = false;
         private string _icon = Icons.Material.Filled.DarkMode;
         private bool _rightToLeft =false;
-        [Parameter] public string? Direction { get; set; }
+       
         private void DrawerToggle()
         {
             _drawerOpen = !_drawerOpen;
