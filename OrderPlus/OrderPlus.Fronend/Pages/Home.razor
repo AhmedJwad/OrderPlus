@@ -1,12 +1,13 @@
 ﻿@page "/"
+@inject IStringLocalizer<Resource> _Localizer
 
 <MudTabs>
-    <MudTabPanel Text="News and Promotions">
+    <MudTabPanel Text="@_Localizer["News and Promotions"]">
         <MudContainer MaxWidth="MaxWidth.Large">
            @*  <NewsAndPromotions/> *@
         </MudContainer>
     </MudTabPanel>
-    <MudTabPanel Text="Product Catalog">
+    <MudTabPanel Text="@_Localizer["Products"]">
         <ProductCatalog/>
     </MudTabPanel>
 </MudTabs>

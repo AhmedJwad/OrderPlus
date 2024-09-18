@@ -126,4 +126,52 @@
   <data name="ContentAbout" xml:space="preserve">
     <value>إن السعي وراء الفرص والحاجة الملحة لتلبية احتياجات الناس يدفع الكثيرين إلى اللجوء إلى "الرقمية"، وهو مصطلح محلي يجسد الإبداع الكامن في إيجاد سبل لكسب الدخل. وهذا الوضع يدفع عدداً لا يحصى من الأفراد إلى طرح أسئلة حاسمة: أي نوع من الأعمال ينبغي لي أن أبدأ؟ أي منتج أو خدمة ينبغي لي أن أقدم؟ كيف يمكنني أن أعيش؟ هذه الأسئلة تؤدي إلى ظهور مجموعة واسعة من أفكار الأعمال، كل منها قيمة ومبتكرة.</value>
   </data>
+  <data name="purchase" xml:space="preserve">
+    <value>المشتريات</value>
+  </data>
+  <data name="Banks" xml:space="preserve">
+    <value>البنوك</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>التصنيفات</value>
+  </data>
+  <data name="Inventories" xml:space="preserve">
+    <value>المخزونات</value>
+  </data>
+  <data name="News and Promotions" xml:space="preserve">
+    <value>الأخبار والترقيات</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>الدول</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>الطلبيات</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>المنتجات</value>
+  </data>
+  <data name="Suppliers" xml:space="preserve">
+    <value>الموردين</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>المستخدمين</value>
+  </data>
+  <data name="Inventory Adjustments" xml:space="preserve">
+    <value>تعديلات المخزون</value>
+  </data>
+  <data name="Inventory valuation" xml:space="preserve">
+    <value>تقييم المخزون</value>
+  </data>
+  <data name="Gross Profit" xml:space="preserve">
+    <value>الربح الإجمالي</value>
+  </data>
+  <data name="My Orders" xml:space="preserve">
+    <value>طلبياتي</value>
+  </data>
+  <data name="Order plus" xml:space="preserve">
+    <value>نظام الطلبات الشامل</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
 </root>

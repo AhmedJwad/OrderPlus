@@ -126,4 +126,53 @@
   <data name="ContentAbout" xml:space="preserve">
     <value>The pursuit of opportunities and the pressing need to meet people's needs lead many to turn to the "digital," a local term that captures the creativity involved in finding ways to earn income. This situation prompts countless individuals to ask crucial questions: What kind of business should I start? What product or service should I offer? How can I sustain myself? These questions give rise to a wide range of business ideas, each as valuable as they are innovative.</value>
   </data>
+  <data name="purchase" xml:space="preserve">
+    <value>purchase</value>
+  </data>
+  <data name="Banks" xml:space="preserve">
+    <value>Banks</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+    <comment>التصنيفات</comment>
+  </data>
+  <data name="Inventories" xml:space="preserve">
+    <value>Inventories</value>
+  </data>
+  <data name="News and Promotions" xml:space="preserve">
+    <value>News and Promotions</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Countries</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="Suppliers" xml:space="preserve">
+    <value>Suppliers</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Inventory Adjustments" xml:space="preserve">
+    <value>Inventory Adjustments</value>
+  </data>
+  <data name="Inventory valuation" xml:space="preserve">
+    <value>Inventory valuation</value>
+  </data>
+  <data name="Gross Profit" xml:space="preserve">
+    <value>Gross Profit</value>
+  </data>
+  <data name="My Orders" xml:space="preserve">
+    <value>My Orders</value>
+  </data>
+  <data name="Order plus" xml:space="preserve">
+    <value>Order Plus</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
 </root>

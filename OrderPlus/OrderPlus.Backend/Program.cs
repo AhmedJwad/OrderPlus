@@ -59,6 +59,7 @@ builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IFileStorage, FileStorage>();
 builder.Services.AddScoped<IMailHelper, MailHelper>();
 builder.Services.AddScoped<IOrdersHelper, OrdersHelper>();
+builder.Services.AddScoped<IPurchaseHelper, PurchaseHelper>();
 builder.Services.AddScoped<ISmtpClient, SmtpClientWrapper>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
@@ -84,6 +85,12 @@ builder.Services.AddScoped<IBanksRepository, BanksRepository>();
 builder.Services.AddScoped<IBanksUnitOfWork, BanksUnitOfWork>();
 builder.Services.AddScoped<ISuppliersRepository, SuppliersRepository>();
 builder.Services.AddScoped<ISuppliersUnitOfWork, SuppliersUnitOfWork>();
+builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+builder.Services.AddScoped<IPurchaseUnitOfWork,  PurchaseUnitOfWork>();
+builder.Services.AddScoped<ITemporalPurchasesRepository, TemporalPurchasesRepository>();
+builder.Services.AddScoped<ITemporalPurchasesUnitOfWork, TemporalPurchasesUnitOfWork>();
+builder.Services.AddScoped<IPurchaseDetailRepository, PurchaseDetailRepository>();
+builder.Services.AddScoped<IPurchaseDetailUnitOfWork, PurchaseDetailUnitOfWork>();
 builder.Services.AddScoped<IRuntimeInformationWrapper, RuntimeInformationWrapper>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>

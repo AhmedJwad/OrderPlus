@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @using System.Globalization
-
+@inject IStringLocalizer<Resource> _Localizer
 @if (CultureInfo.CurrentCulture.Name == "ar-EG")
 {
     
@@ -19,7 +19,7 @@ else
 <MudLayout dir="@_rightToLeft">
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudLink Href="/" Typo="Typo.h5" Class="ml-3" Color="Color.Inherit">Order Plus</MudLink>
+            <MudLink Href="/" Typo="Typo.h5" Class="ml-3" Color="Color.Inherit">@_Localizer["Order plus"]</MudLink>
         <MudSpacer />
         <CultureSelector/>
         <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Inherit" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight">

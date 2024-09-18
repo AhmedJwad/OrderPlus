@@ -11,26 +11,26 @@
     <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">@_Localizer["About"]</MudNavLink> 
     <AuthorizeView Roles="Admin">
         <Authorized>
-            <MudNavLink Href="/banks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBalance">Banks</MudNavLink>
-            <MudNavLink Href="/categories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Category">Categories</MudNavLink>
-            <MudNavLink Href="/purchases" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ShoppingBag">Compras</MudNavLink>
-            <MudNavLink Href="/inventories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Rule">Inventarios</MudNavLink>
-            <MudNavLink Href="/news" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Newspaper">Noticias & Promociones</MudNavLink>
-            <MudNavLink Href="/countries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">Country</MudNavLink>
-            <MudNavLink Href="/orders" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Orders</MudNavLink>
-            <MudNavLink Href="/products" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Inventory2">Products</MudNavLink>
-            <MudNavLink Href="/suppliers" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.LocalShipping">Suppliers</MudNavLink>
-            <MudNavLink Href="/users" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Group">Users</MudNavLink>
-            <MudNavGroup Title="Reports" Icon="@Icons.Material.Filled.Summarize">
-                <MudNavLink Href="/report_InventoryAdjustment" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Inventory Adjustments</MudNavLink>
-                <MudNavLink Href="/report_InventoryValuation" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Inventory valuation</MudNavLink>
-                <MudNavLink Href="/report_GrossProfit" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Gross Profit</MudNavLink>
+            <MudNavLink Href="/banks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBalance">@_Localizer["Banks"]</MudNavLink>
+            <MudNavLink Href="/categories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Category">@_Localizer["Categories"]</MudNavLink>
+            <MudNavLink Href="/purchases" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ShoppingBag">@_Localizer["purchase"]</MudNavLink>
+            <MudNavLink Href="/inventories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Rule">@_Localizer["Inventories"]</MudNavLink>
+            <MudNavLink Href="/news" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Newspaper">@_Localizer["News and Promotions"]</MudNavLink>
+            <MudNavLink Href="/countries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">@_Localizer["Country"]</MudNavLink>
+            <MudNavLink Href="/orders" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">@_Localizer["Orders"]</MudNavLink>
+            <MudNavLink Href="/products" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Inventory2">@_Localizer["Products"]</MudNavLink>
+            <MudNavLink Href="/suppliers" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.LocalShipping">@_Localizer["Suppliers"]</MudNavLink>
+            <MudNavLink Href="/users" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Group">@_Localizer["Users"]</MudNavLink>
+            <MudNavGroup Title="@_Localizer["Reports"]" Icon="@Icons.Material.Filled.Summarize">
+                <MudNavLink Href="/report_InventoryAdjustment" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">@_Localizer["Inventory Adjustments"]</MudNavLink>
+                <MudNavLink Href="/report_InventoryValuation" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">@_Localizer["Inventory valuation"]</MudNavLink>
+                <MudNavLink Href="/report_GrossProfit" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">@_Localizer["Gross Profit"]</MudNavLink>
             </MudNavGroup>
         </Authorized>
      </AuthorizeView>
     <AuthorizeView Roles="User">
         <Authorized>
-            <MudNavLink Href="/orders" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">My Orders</MudNavLink>
+            <MudNavLink Href="/orders" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">@_Localizer["My Orders"]</MudNavLink>
         </Authorized>
     </AuthorizeView>       
 </MudNavMenu>

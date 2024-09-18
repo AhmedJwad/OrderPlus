@@ -1,0 +1,55 @@
+﻿@page "/purchases"
+
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudTable Items="@purchase"
+              @ref="table"
+              ServerData="@(new Func<TableState, Task<TableData<Purchase>>>(LoadListAsync))"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true">
+        <ToolBarContent>
+            <div class="d-flex justify-content-between">
+                <MudText Typo="Typo.h6" Class="me-4"><i class="bi bi-bag"></i> Shopping</MudText>
+                <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Add" Color="Color.Info" OnClick="@(() => ShowModalAsync())">Create</MudButton>
+            </div>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Date</MudTh>
+            <MudTh>Supplier</MudTh>
+            <MudTh>Comments</MudTh>
+            <MudTh>Lines</MudTh>
+            <MudTh>Quantity</MudTh>
+            <MudTh>Value</MudTh>
+            <MudTh style="width: 150px;">Actions</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Date">@context.Date.ToLocalTime()</MudTd>
+            <MudTd DataLabel="Supplier">@context.Supplier!.SupplierName</MudTd>
+            <MudTd DataLabel="Comments">@(TruncateContent(context.Remarks!, 100))</MudTd>
+            <MudTd DataLabel="Lines">@($"{context.Lines:N0}")</MudTd>
+            <MudTd DataLabel="Quantity">@($"{context.Quantity:N2}")</MudTd>
+            <MudTd DataLabel="Value">@($"{context.Value:c2}")</MudTd>
+            <MudTd DataLabel="Action">
+                <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Info" Color="Color.Warning" OnClick="@(() => ShowModalAsync(context.Id))">Details</MudButton>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>No records found.</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString="Number of Records:"
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText="Todos"
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}
