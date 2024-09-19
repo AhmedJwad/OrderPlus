@@ -1,0 +1,19 @@
+﻿<MudDialog>
+    <DialogContent>
+        <EditForm Model="inventory" OnValidSubmit="SaveInventoryAsync">
+            <DataAnnotationsValidator/>
+            <MudCardContent>
+                <MudDatePicker Label="Date" Date="@inventory.Date" DateChanged="OnDateChange" />
+                <MudTextField Label="Name" @bind-Value="@inventory.Name"
+                For="@(()=> inventory.Name)"/>
+                <MudTextField Label="Description" Lines="3" @bind-Value="@inventory.Description"
+                For="@(()=> inventory.Description)" />
+            </MudCardContent>
+            <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Check" Color="Color.Primary" ButtonType="ButtonType.Submit">
+                Create
+            </MudButton>
+            <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Info"
+                       Href="/inventories">Return</MudButton>
+        </EditForm>
+    </DialogContent>
+</MudDialog>

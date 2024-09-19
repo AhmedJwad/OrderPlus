@@ -1,0 +1,80 @@
+﻿@page "/inventories"
+
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudTable Items="@Inventories"
+              @ref="table"
+              ServerData="@(new Func<TableState, Task<TableData<Inventory>>>(LoadListAsync))"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true">
+        <ToolBarContent>
+            <div class="d-flex justify-content-between">
+                <MudText Typo="Typo.h6" Class="me-4"><i class="bi bi-clipboard-check"></i> Inventories</MudText>
+                <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Add" Color="Color.Info" OnClick="@(() => ShowCreateModalAsync())">Create</MudButton>
+            </div>
+            <MudSpacer />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Date</MudTh>
+            <MudTh>Name</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Count 1 Completed</MudTh>
+            <MudTh>Count 2 Completed</MudTh>
+            <MudTh>Count 3 Completed</MudTh>
+            <MudTh style="width: 400px;">Action</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Date">@context.Date.ToLocalTime()</MudTd>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Description">@context.Description</MudTd>
+            <MudTd DataLabel="Count 1 Completed<">
+                <MudCheckBox @bind-Checked="context.Count1Finish" Disabled="true" />
+            </MudTd>
+            <MudTd DataLabel="Count 2 Completed<">
+                <MudCheckBox @bind-Checked="context.Count2Finish" Disabled="true" />
+            </MudTd>
+            <MudTd DataLabel="Count 3 Completed<">
+                <MudCheckBox @bind-Checked="context.Count3Finish" Disabled="true" />
+            </MudTd>
+            <MudTd DataLabel="Action">
+                <MudButton Variant="Variant.Outlined" 
+                           EndIcon="@Icons.Material.Filled.LooksOne" 
+                           Color="Color.Warning"
+                           OnClick="@(() => ShowCount1ModalAsync(context))"
+                           Disabled="@context.Count1Finish">
+                    Counting
+                </MudButton>
+                <MudButton Variant="Variant.Outlined" 
+                           EndIcon="@Icons.Material.Filled.LooksTwo" 
+                           Color="Color.Info"
+                           OnClick="@(() => ShowCount2ModalAsync(context))"
+                           Disabled="@context.Count2Finish">
+                    Counting
+                </MudButton>
+                <MudButton Variant="Variant.Outlined" 
+                           EndIcon="@Icons.Material.Filled.Looks3" 
+                           Color="Color.Secondary"
+                           OnClick="@(() => ShowCount3ModalAsync(context))"
+                           Disabled="context.Count3Finish">
+                    Counting
+                </MudButton>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>No records found.</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString="Number of Records:"
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText="Todos"
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}
