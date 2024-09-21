@@ -19,7 +19,7 @@ namespace OrderPlus.Backend.Repositories.Implementations
 
         public async Task<ActionResponse<IEnumerable<InventoryDetail>>> GetCount1Async(PaginationDTO pagination)
         {
-            var queryable = _context.InventoryDetails.AsQueryable();
+            var queryable = _context.InventoryDetails.Include(x=>x.Product).AsQueryable();
             if (pagination.Id != 0)
             {
                 queryable = queryable.Where(x => x.InventoryId == pagination.Id);
@@ -162,8 +162,9 @@ namespace OrderPlus.Backend.Repositories.Implementations
 
         public override async Task<ActionResponse<InventoryDetail>> UpdateAsync(InventoryDetail inventoryDetail)
         {
-            var currentInventoryDetail=await _context.InventoryDetails.FindAsync(inventoryDetail.Id);   
-            if (currentInventoryDetail != null)
+            var currentInventoryDetail=await _context.InventoryDetails.FindAsync(inventoryDetail.Id); 
+           
+            if (currentInventoryDetail == null)
             {
                 return new ActionResponse<InventoryDetail>
                 {
@@ -174,9 +175,10 @@ namespace OrderPlus.Backend.Repositories.Implementations
             currentInventoryDetail.Cost = inventoryDetail.Cost;
             currentInventoryDetail.Count1 = inventoryDetail.Count1;
             currentInventoryDetail.Count2 = inventoryDetail.Count2;
-            currentInventoryDetail.Count3 = inventoryDetail.Count3;
+            currentInventoryDetail.Count3 = inventoryDetail.Count3;                    
             currentInventoryDetail.Adjustment = inventoryDetail.Adjustment;
-
+            currentInventoryDetail.Stock=inventoryDetail.Stock;
+           
             _context.Update(currentInventoryDetail);
             await _context.SaveChangesAsync();
             return new ActionResponse<InventoryDetail>

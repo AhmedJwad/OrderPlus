@@ -19,7 +19,7 @@ namespace OrderPlus.Backend.UnitsOfWork.Implementations
         =>await _inventoriesRepository.AddAsync(inventory);
 
         public async Task<ActionResponse<bool>> FinishCount1Async(int id)
-        =>await _inventoriesRepository.FinishCount2Async(id);
+        =>await _inventoriesRepository.FinishCount1Async(id);
 
         public async Task<ActionResponse<bool>> FinishCount2Async(int id)
         => await _inventoriesRepository.FinishCount2Async(id);

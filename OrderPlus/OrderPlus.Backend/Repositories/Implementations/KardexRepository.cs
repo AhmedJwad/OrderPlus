@@ -53,61 +53,65 @@ namespace OrderPlus.Backend.Repositories.Implementations
         private async Task ReKardexAsync(List<Kardex> kardexForProdcut)
         {
             Kardex? previousKardex = null;
-            foreach (var item in kardexForProdcut)
+            foreach (var kardex in kardexForProdcut)
             {
-                switch (item.KardexType)
+                switch (kardex.KardexType)
                 {
                     case KardexType.Purchase:
-                        if(previousKardex==null)
+                        if (previousKardex == null)
                         {
-                            item.Balance = item.Quantity;
-                            item.AverageCost = item.Cost;
+                            kardex.Balance = kardex.Quantity;
+                            kardex.AverageCost = kardex.Cost;
                         }
                         else
                         {
-                            item.Balance = item.Quantity + previousKardex.Quantity;
-                            item.AverageCost=((decimal)item.Quantity * item.Cost + (decimal)previousKardex.Balance * previousKardex.AverageCost)/(decimal)item.Balance;
+                            kardex.Balance = kardex.Quantity + previousKardex.Balance;
+                            kardex.AverageCost = ((decimal)kardex.Quantity * kardex.Cost + (decimal)previousKardex.Balance * previousKardex.AverageCost) / (decimal)kardex.Balance;
                         }
                         break;
+
                     case KardexType.Order:
-                        if(previousKardex==null)
+                        if (previousKardex == null)
                         {
-                            item.Balance -=item.Quantity;
-                            item.AverageCost = 0;
+                            kardex.Balance -= kardex.Quantity;
+                            kardex.AverageCost = 0;
                         }
                         else
                         {
-                            item.Balance = previousKardex.Balance - item.Quantity;
-                            item.AverageCost = item.AverageCost;
+                            kardex.Balance = previousKardex.Balance - kardex.Quantity;
+                            kardex.AverageCost = previousKardex.AverageCost;
                         }
                         break;
+
                     case KardexType.CancelOrder:
                         if (previousKardex == null)
                         {
-                            item.Balance += item.Quantity;
-                            item.AverageCost = 0;
+                            kardex.Balance += kardex.Quantity;
+                            kardex.AverageCost = 0;
                         }
                         else
                         {
-                            item.Balance = previousKardex.Balance + item.Quantity;
-                            item.AverageCost = previousKardex.AverageCost;
+                            kardex.Balance = previousKardex.Balance + kardex.Quantity;
+                            kardex.AverageCost = previousKardex.AverageCost;
                         }
                         break;
+
                     case KardexType.Inventory:
                         if (previousKardex == null)
                         {
-                            item.Balance += item.Quantity;
-                            item.AverageCost = item.Cost;
+                            kardex.Balance += kardex.Quantity;
+                            kardex.AverageCost = kardex.Cost;
                         }
                         else
                         {
-                            item.Balance = previousKardex.Balance + item.Quantity;
-                            item.AverageCost = item.Cost;
+                            kardex.Balance = previousKardex.Balance + kardex.Quantity;
+                            kardex.AverageCost = kardex.Cost;
                         }
-                        break;                   
+                        break;
                 }
-                previousKardex = item;
+                previousKardex = kardex;
             }
+
             var product = await _context.Products.FindAsync(previousKardex!.ProductId);
             if (product != null)
             {

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using OrderPlus.Fronend.Repositories;
 using OrderPlus.Shared.Entites;
 
 namespace OrderPlus.Fronend.Pages.Inventories
 {
+    [Authorize(Roles = "Admin")]
     public partial class InventoriesIndex
     {
         public List<Inventory>? Inventories { get; set; }

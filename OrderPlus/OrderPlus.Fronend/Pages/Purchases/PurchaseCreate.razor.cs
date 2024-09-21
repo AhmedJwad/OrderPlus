@@ -227,7 +227,7 @@ namespace OrderPlus.Fronend.Pages.Purchases
                     Remarks = item.Remarks,
                 });
             }
-            var responseHttp = await repository.PostAsync<PurchaseDTO>("/api/purchases/full", purchaseDTO);
+            var responseHttp = await repository.PostAsync<PurchaseDTO>("/api/Purchases/full", purchaseDTO);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();

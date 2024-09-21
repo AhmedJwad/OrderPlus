@@ -1,5 +1,55 @@
-﻿<h3>EnterCount3</h3>
-
-@code {
-
-}
+﻿﻿<MudDialog>
+    <DialogContent>
+        <MudTable Items="@inventoryDetails"
+                  @ref="table"
+                  ServerData="@(new Func<TableState, Task<TableData<InventoryDetail>>>(LoadListAsync))"
+                  Dense="true"
+                  Hover="true"
+                  Striped="true"
+                  FixedHeader="true"
+                  FixedFooter="true"
+                  Class="mb-2">
+            <ToolBarContent>
+                <FilterComponent ApplyFilter="SetFilterValue" />
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Product</MudTh>
+                <MudTh>Cost</MudTh>
+                <MudTh>Quantity</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Product">@context.Product!.Name</MudTd>
+                <MudTd DataLabel="Cost">
+                    <MudNumericField @bind-Value="@context.Cost" Label="Costo" Disabled="@(!enableModifyCost)" />
+                </MudTd>
+                <MudTd DataLabel="Quantity">
+                    <MudNumericField @bind-Value="@context.Count3" Label="Quantity" />
+                </MudTd>
+            </RowTemplate>
+            <NoRecordsContent>
+                <MudText>No records found.</MudText>
+            </NoRecordsContent>
+            <PagerContent>
+                <div class="m-2 p-2">
+                    <MudCheckBox T="bool" Value="enableModifyCost" ValueChanged="OnEnableModifyCostChanged">Does it allow costs to be modified?</MudCheckBox>
+                    <MudText Typo="Typo.body1">Before changing pages, click the <b>Save</b> button to avoid losing your changes.</MudText>
+                </div>
+                <MudTablePager RowsPerPageString="Number of Records:"
+                               PageSizeOptions="pageSizeOptions"
+                               AllItemsText="Todos"
+                               InfoFormat="@infoFormat" />
+            </PagerContent>
+        </MudTable>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Info" Href="/inventories">
+           Return
+        </MudButton>
+        <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" OnClick="SaveCount">
+           Save
+        </MudButton>
+        <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Check" Color="Color.Secondary" OnClick="FinishCountAsync">
+            End Count
+        </MudButton>
+    </DialogActions>
+</MudDialog>

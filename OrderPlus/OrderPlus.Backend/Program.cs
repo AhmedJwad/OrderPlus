@@ -93,8 +93,8 @@ builder.Services.AddScoped<IPurchaseDetailRepository, PurchaseDetailRepository>(
 builder.Services.AddScoped<IPurchaseDetailUnitOfWork, PurchaseDetailUnitOfWork>();
 builder.Services.AddScoped<IInventoriesUnitOfWork, InventoriesUnitOfWork>();
 builder.Services.AddScoped<IInventoriesRepository, InventoriesRepository>();
-builder.Services.AddScoped<InventoryDetailsRepository , InventoryDetailsRepository>();
-builder.Services.AddScoped<InventoryDetailsRepository, InventoryDetailsRepository>();
+builder.Services.AddScoped<IInventoryDetailsRepository , InventoryDetailsRepository>();
+builder.Services.AddScoped<IInventoryDetailsUnitOfWork, InventoryDetailsUnitOfWork>();
 builder.Services.AddScoped<IRuntimeInformationWrapper, RuntimeInformationWrapper>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
