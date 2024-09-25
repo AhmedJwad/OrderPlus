@@ -1,0 +1,43 @@
+﻿@page "/report_InventoryValuation"
+
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudCard>
+        <MudCardContent>
+            <MudText Typo="Typo.h4">Inventory Valuation</MudText>
+            <MudTable Items="products" Dense="true" Hover="true" Striped="true">
+                <HeaderContent>
+                    <MudTh>Products</MudTh>
+                    <MudTh style="text-align: right;">Price</MudTh>
+                    <MudTh style="text-align: right;">Cost</MudTh>
+                    <MudTh style="text-align: right;">Quantity</MudTh>
+                    <MudTh style="text-align: right;">Value of Cost</MudTh>
+                    <MudTh style="text-align: right;">Value of Price</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Products">@context.Name</MudTd>
+                    <MudTd DataLabel="Price" style="text-align: right;">@($"{context.Price:C2}")</MudTd>
+                    <MudTd DataLabel="Cost" style="text-align: right;">@($"{context.Cost:C2}")</MudTd>
+                    <MudTd DataLabel="Quantity" style="text-align: right;">@($"{context.Stock:N2}")</MudTd>
+                    <MudTd DataLabel="Value of Cost" style="text-align: right;">@($"{context.CostValue:C2}")</MudTd>
+                    <MudTd DataLabel="Value of Price" style="text-align: right;">@($"{context.PriceValue:C2}")</MudTd>
+                </RowTemplate>
+                <FooterContent>
+                    <MudTh><b>Totals</b></MudTh>
+                    <MudTh style="text-align: right;"></MudTh>
+                    <MudTh style="text-align: right;"></MudTh>
+                    <MudTh style="text-align: right;"><b>@($"{totalQuantiy:N2}")</b></MudTh>
+                    <MudTh style="text-align: right;"><b>@($"{totalValueCost:C2}")</b></MudTh>
+                    <MudTh style="text-align: right;"><b>@($"{totalValuePrice:C2}")</b></MudTh>
+                </FooterContent>
+            </MudTable>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ExportToExcel" Class="m-3">
+                Export to Excel
+            </MudButton>
+        </MudCardContent>
+    </MudCard>
+}

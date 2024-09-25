@@ -12,6 +12,7 @@
     <AuthorizeView Roles="Admin">
         <Authorized>
             <MudNavLink Href="/banks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBalance">@_Localizer["Banks"]</MudNavLink>
+            <MudNavLink Href="/ProductChart" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.MultilineChart">@_Localizer["charts"]</MudNavLink>
             <MudNavLink Href="/categories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Category">@_Localizer["Categories"]</MudNavLink>
             <MudNavLink Href="/purchases" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ShoppingBag">@_Localizer["purchase"]</MudNavLink>
             <MudNavLink Href="/inventories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Rule">@_Localizer["Inventories"]</MudNavLink>

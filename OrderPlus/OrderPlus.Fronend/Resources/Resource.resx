@@ -175,4 +175,7 @@
   <data name="Reports" xml:space="preserve">
     <value>Reports</value>
   </data>
+  <data name="charts" xml:space="preserve">
+    <value>charts</value>
+  </data>
 </root>

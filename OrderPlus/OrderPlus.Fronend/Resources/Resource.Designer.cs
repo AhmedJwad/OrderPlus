@@ -70,6 +70,33 @@ namespace OrderPlus.Fronend.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Banks.
+        /// </summary>
+        public static string Banks {
+            get {
+                return ResourceManager.GetString("Banks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        public static string Categories {
+            get {
+                return ResourceManager.GetString("Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to charts.
+        /// </summary>
+        public static string charts {
+            get {
+                return ResourceManager.GetString("charts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The pursuit of opportunities and the pressing need to meet people&apos;s needs lead many to turn to the &quot;digital,&quot; a local term that captures the creativity involved in finding ways to earn income. This situation prompts countless individuals to ask crucial questions: What kind of business should I start? What product or service should I offer? How can I sustain myself? These questions give rise to a wide range of business ideas, each as valuable as they are innovative..
         /// </summary>
         public static string ContentAbout {
@@ -79,11 +106,137 @@ namespace OrderPlus.Fronend.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Countries.
+        /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gross Profit.
+        /// </summary>
+        public static string Gross_Profit {
+            get {
+                return ResourceManager.GetString("Gross Profit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inventories.
+        /// </summary>
+        public static string Inventories {
+            get {
+                return ResourceManager.GetString("Inventories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inventory Adjustments.
+        /// </summary>
+        public static string Inventory_Adjustments {
+            get {
+                return ResourceManager.GetString("Inventory Adjustments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inventory valuation.
+        /// </summary>
+        public static string Inventory_valuation {
+            get {
+                return ResourceManager.GetString("Inventory valuation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Orders.
+        /// </summary>
+        public static string My_Orders {
+            get {
+                return ResourceManager.GetString("My Orders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to News and Promotions.
+        /// </summary>
+        public static string News_and_Promotions {
+            get {
+                return ResourceManager.GetString("News and Promotions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Plus.
+        /// </summary>
+        public static string Order_plus {
+            get {
+                return ResourceManager.GetString("Order plus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orders.
+        /// </summary>
+        public static string Orders {
+            get {
+                return ResourceManager.GetString("Orders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Products.
+        /// </summary>
+        public static string Products {
+            get {
+                return ResourceManager.GetString("Products", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to purchase.
+        /// </summary>
+        public static string purchase {
+            get {
+                return ResourceManager.GetString("purchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        public static string Reports {
+            get {
+                return ResourceManager.GetString("Reports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suppliers.
+        /// </summary>
+        public static string Suppliers {
+            get {
+                return ResourceManager.GetString("Suppliers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
     }

@@ -174,4 +174,7 @@
   <data name="Reports" xml:space="preserve">
     <value>التقارير</value>
   </data>
+  <data name="charts" xml:space="preserve">
+    <value>المخططات البيانية</value>
+  </data>
 </root>
