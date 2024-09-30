@@ -34,6 +34,9 @@ namespace OrderPlus.Backend.UnitsOfWork.Implementations
         public async Task<IEnumerable<Product>> GetComboAsync()
         =>await _productsRepository.GetComboAsync();
 
+        public async Task<IEnumerable<CategoryProductDTO>> GetProductCountByCategoryAsync()
+       =>await _productsRepository.GetProductCountByCategoryAsync();
+
         public override async Task<ActionResponse<int>> GetRecordsNumberAsync(PaginationDTO pagination)
         => await _productsRepository.GetRecordsNumberAsync(pagination);
 

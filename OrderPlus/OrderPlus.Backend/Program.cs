@@ -95,6 +95,8 @@ builder.Services.AddScoped<IInventoriesUnitOfWork, InventoriesUnitOfWork>();
 builder.Services.AddScoped<IInventoriesRepository, InventoriesRepository>();
 builder.Services.AddScoped<IInventoryDetailsRepository , InventoryDetailsRepository>();
 builder.Services.AddScoped<IInventoryDetailsUnitOfWork, InventoryDetailsUnitOfWork>();
+builder.Services.AddScoped<INewsRepository , NewsRepository>();
+builder.Services.AddScoped<INewsUnitOfWork , NewsUnitOfWork>();
 builder.Services.AddScoped<IRuntimeInformationWrapper, RuntimeInformationWrapper>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
@@ -161,6 +163,12 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(
            Path.Combine(builder.Environment.ContentRootPath, "images/products")),
     RequestPath = "/images/products"
+});
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "images/news")),
+    RequestPath = "/images/news"
 });
 app.UseRouting();
 app.UseHttpsRedirection();

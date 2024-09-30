@@ -1,1 +1,33 @@
 ﻿@page "/ProductChart"
+@if (Series.Count > 0 && XAxisLabels != null && XAxisLabels.Length > 0)
+{
+    <div>
+        <MudChart ChartType="ChartType.StackedBar"
+                  ChartSeries="@Series"
+                  @bind-SelectedIndex="Index"
+                  LegendPosition="@LegendPosition"
+                  XAxisLabels="@XAxisLabels"
+                  Width="100%"
+                  Height="350px">
+
+        </MudChart>
+        <MudButton Variant="Variant.Filled" @onclick="RandomizeData">Randomize Data</MudButton>
+
+    </div>
+    <MudText Typo="Typo.h6">Selected portion of the chart: @Index</MudText>
+
+    <div>
+        <MudRadioGroup T="Position" @bind-Value="LegendPosition">
+            <MudRadio Value="@(Position.Bottom)" Color="Color.Primary">Bottom</MudRadio>
+            <MudRadio Value="@(Position.Top)" Color="Color.Primary">Top</MudRadio>
+            <MudRadio Value="@(Position.Left)" Color="Color.Primary">Left</MudRadio>
+            <MudRadio Value="@(Position.Right)" Color="Color.Primary">Right</MudRadio>
+            <MudRadio Value="@(Position.Start)" Color="Color.Primary">Start</MudRadio>
+            <MudRadio Value="@(Position.End)" Color="Color.Primary">End</MudRadio>
+        </MudRadioGroup>
+    </div>
+}
+else
+{
+    <p>Loading chart data...</p>
+}

@@ -127,5 +127,10 @@ namespace OrderPlus.Backend.Controllers
             }
             return NotFound(action.Message);
         }
+        [HttpGet("getProductbyCategory")]
+        public async Task<IActionResult> GetProductCountByCategoryAsync()
+        {
+            return Ok(await _productsUnitOfWork.GetProductCountByCategoryAsync());
+        }
     }
 }

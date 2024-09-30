@@ -41,6 +41,7 @@
 
  
   <ItemGroup>
+    <Folder Include="images\news\" />
     <Folder Include="images\products\" />
   </ItemGroup>
 

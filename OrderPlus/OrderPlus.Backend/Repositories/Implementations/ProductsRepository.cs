@@ -183,6 +183,11 @@ namespace OrderPlus.Backend.Repositories.Implementations
             {
                 queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
+            if (pagination.CategoryId != null && pagination.CategoryId > 0)
+            {
+                queryable = queryable.Where(x => x.ProductCategories!
+                    .Any(y => y.CategoryId == pagination.CategoryId));
+            }
 
             if (!string.IsNullOrWhiteSpace(pagination.CategoryFilter))
             {
@@ -335,6 +340,21 @@ namespace OrderPlus.Backend.Repositories.Implementations
                     Message = exception.Message
                 };
             }
+        }
+        public async Task<IEnumerable<CategoryProductDTO>> GetProductCountByCategoryAsync()
+        {
+            // Query to join Product, ProductCategory, and Category tables
+            var response = await (from prodCat in _context.ProductCategories
+                                  join prod in _context.Products on prodCat.ProductId equals prod.Id
+                                  join cat in _context.Categories on prodCat.CategoryId equals cat.Id
+                                  group prodCat by new { cat.Id, cat.Name } into g
+                                  select new CategoryProductDTO
+                                  {
+                                      CategoryName = g.Key.Name,     // The name of the category
+                                      ProductCount = g.Count()       // The number of products in that category
+                                  }).ToListAsync();
+
+            return response;
         }
     }
 }

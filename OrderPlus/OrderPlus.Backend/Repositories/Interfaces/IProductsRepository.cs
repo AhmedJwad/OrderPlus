@@ -1,6 +1,7 @@
 ﻿using OrderPlus.Shared.DTOs;
 using OrderPlus.Shared.Entites;
 using OrderPlus.Shared.Responses;
+using System.Threading.Tasks;
 
 namespace OrderPlus.Backend.Repositories.Interfaces
 {
@@ -16,5 +17,6 @@ namespace OrderPlus.Backend.Repositories.Interfaces
         Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO paginationDTO);
         Task<ActionResponse<Product>> AddFullAsync(ProductDTO productDTO);
         Task<ActionResponse<Product>> UpdateFullAsync(ProductDTO productDTO);
+        Task<IEnumerable<CategoryProductDTO>> GetProductCountByCategoryAsync();
     }
 }
