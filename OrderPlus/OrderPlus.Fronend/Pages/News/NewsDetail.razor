@@ -1,0 +1,22 @@
+﻿﻿@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <MudItem>
+                <MudImage Src="@($"https://localhost:7106/{newsArticle!.ImageUrl}")" Alt="News" Class="my-2 w-100" />
+            </MudItem>
+            <MudItem>
+                <MudText Typo="Typo.body1">@newsArticle!.Summary</MudText>
+            </MudItem>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Info" Href="/">
+                Return
+            </MudButton>
+        </DialogActions>
+    </MudDialog>
+}
